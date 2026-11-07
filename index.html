@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" data-theme="day">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>曲禮三問・《禮記‧曲禮》邏輯思辨研習卷</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-tc/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-tc/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/noto-serif-tc/900.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ma-shan-zheng/400.css">
+<style>
+:root{
+  --paper:#f3ead5; --paper2:#e9dcc0; --card:#fbf5e7; --ink:#211d18; --ink2:#544a3c;
+  --cinnabar:#9c2b21; --cinnabar2:#b8443a; --gold:#a2814a; --jade:#3d5a50; --indigo:#2d3d59;
+  --line:#c4ae85; --line2:#d9c9a6; --shade:rgba(60,45,20,.14);
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
+}
+html[data-theme="night"]{
+  --paper:#14120e; --paper2:#1b1813; --card:#201c16; --ink:#ded3bd; --ink2:#a99c85;
+  --cinnabar:#cf6154; --cinnabar2:#e0776a; --gold:#c0a066; --jade:#86ad9d; --indigo:#93aed8;
+  --line:#443c2f; --line2:#332c22; --shade:rgba(0,0,0,.5);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Serif TC","Songti TC",serif;line-height:1.95;letter-spacing:.03em;
+  background-image:var(--grain);background-attachment:fixed;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-weight:900;line-height:1.4;margin:0}
+p{margin:.6em 0}
+a{color:var(--cinnabar)}
+button{font-family:inherit}
+::selection{background:var(--cinnabar);color:#fbf5e7}
+
+/* ---------- 進度與頂欄 ---------- */
+#prog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--cinnabar),var(--gold));z-index:99;transition:width .12s}
+#topbar{
+  position:fixed;top:0;left:0;right:0;z-index:90;display:flex;align-items:center;gap:14px;
+  padding:9px 18px;background:color-mix(in srgb,var(--paper) 88%,transparent);
+  backdrop-filter:blur(6px);border-bottom:1px solid var(--line);
+}
+#topbar .brand{display:flex;align-items:center;gap:10px;min-width:0}
+#topbar .brand b{font-size:16px;letter-spacing:.18em;white-space:nowrap}
+#topbar .brand span{font-size:11.5px;color:var(--ink2);letter-spacing:.14em;white-space:nowrap}
+#navlinks{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+#navlinks a{
+  font-size:13px;text-decoration:none;color:var(--ink2);padding:5px 10px;border:1px solid transparent;
+  letter-spacing:.1em;transition:.25s;white-space:nowrap;
+}
+#navlinks a:hover{color:var(--cinnabar);border-color:var(--line2)}
+#navlinks a.on{color:var(--cinnabar);border-color:var(--cinnabar);background:color-mix(in srgb,var(--cinnabar) 8%,transparent)}
+.seal{display:inline-block;width:38px;height:38px;flex:0 0 auto}
+.seal svg{width:100%;height:100%;display:block}
+#themeBtn,#menuBtn{
+  background:none;border:1px solid var(--line);color:var(--ink2);cursor:pointer;
+  padding:5px 11px;font-size:12.5px;letter-spacing:.12em;transition:.25s
+}
+#themeBtn:hover{color:var(--cinnabar);border-color:var(--cinnabar)}
+#menuBtn{display:none}
+
+/* ---------- 側欄 ---------- */
+#sidenav{
+  position:fixed;left:10px;top:50%;transform:translateY(-50%);z-index:80;display:flex;flex-direction:column;gap:9px;
+}
+#sidenav button{
+  width:11px;height:11px;border-radius:50%;border:1px solid var(--line);background:none;cursor:pointer;padding:0;transition:.3s;position:relative
+}
+#sidenav button:hover,#sidenav button.on{background:var(--cinnabar);border-color:var(--cinnabar);transform:scale(1.3)}
+#sidenav button::after{
+  content:attr(data-t);position:absolute;left:20px;top:50%;transform:translateY(-50%);
+  font-size:11.5px;color:var(--ink2);white-space:nowrap;opacity:0;pointer-events:none;transition:.25s;letter-spacing:.1em
+}
+#sidenav button:hover::after{opacity:1}
+
+/* ---------- HERO ---------- */
+#hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;padding:90px 20px 50px}
+#hero .art{position:absolute;inset:0;width:100%;height:100%}
+#hero .inner{position:relative;z-index:2;text-align:center;max-width:900px}
+.hero-seal{width:74px;height:74px;margin:0 auto 16px;display:block}
+#hero h1{font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-size:clamp(38px,7vw,74px);letter-spacing:.16em;font-weight:400;color:var(--ink)}
+#hero .sub{font-size:clamp(13px,1.7vw,16px);color:var(--ink2);letter-spacing:.34em;margin-top:6px}
+#typed{
+  margin:34px auto 8px;font-family:"Ma Shan Zheng","Noto Serif TC",serif;font-weight:400;
+  font-size:clamp(21px,3.4vw,34px);letter-spacing:.3em;color:var(--cinnabar);min-height:1.6em
+}
+#typed .ch{opacity:0;transition:opacity .5s}
+#typed .ch.show{opacity:1}
+.hero-src{font-size:12.5px;color:var(--ink2);letter-spacing:.2em}
+.q3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.q3 a{
+  text-decoration:none;color:var(--ink);background:color-mix(in srgb,var(--card) 86%,transparent);
+  border:1px solid var(--line);padding:20px 16px;text-align:left;transition:.35s;position:relative;overflow:hidden
+}
+.q3 a::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--cinnabar);transform:scaleY(0);transition:.35s;transform-origin:bottom}
+.q3 a:hover{transform:translateY(-4px);box-shadow:0 12px 26px var(--shade)}
+.q3 a:hover::before{transform:scaleY(1)}
+.q3 .no{font-family:"Ma Shan Zheng",serif;font-size:30px;color:var(--cinnabar);line-height:1}
+.q3 h3{font-size:16.5px;margin:8px 0 6px;letter-spacing:.1em}
+.q3 p{font-size:13px;color:var(--ink2);margin:0;line-height:1.8}
+.scroll-hint{margin-top:38px;font-size:11.5px;letter-spacing:.3em;color:var(--ink2);animation:fl 2.4s infinite}
+@keyframes fl{0%,100%{transform:translateY(0);opacity:.55}50%{transform:translateY(7px);opacity:1}}
+
+/* ---------- 版面 ---------- */
+section.chap{padding:76px 20px;position:relative}
+.wrap{max-width:1140px;margin:0 auto}
+.chead{display:flex;align-items:flex-end;gap:18px;border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:8px;flex-wrap:wrap}
+.chead .juan{
+  font-family:"Ma Shan Zheng",serif;font-size:15px;color:var(--card);background:var(--ink);
+  padding:5px 12px;letter-spacing:.2em;white-space:nowrap
+}
+.chead h2{font-size:clamp(22px,3.4vw,33px);letter-spacing:.14em}
+.chead .en{font-size:11.5px;color:var(--ink2);letter-spacing:.22em;margin-left:auto}
+.lead{font-size:15.5px;color:var(--ink2);max-width:860px;margin:22px 0 8px;text-align:justify}
+.lead b{color:var(--cinnabar);font-weight:700}
+h3.blk{
+  font-size:19px;letter-spacing:.16em;margin:44px 0 14px;padding-left:14px;position:relative;color:var(--ink)
+}
+h3.blk::before{content:"";position:absolute;left:0;top:.35em;bottom:.35em;width:4px;background:var(--cinnabar)}
+h4.min{font-size:14.5px;letter-spacing:.16em;color:var(--cinnabar);margin:18px 0 6px}
+
+.panel{
+  background:var(--card);border:1px solid var(--line);padding:22px 24px;position:relative;
+  box-shadow:0 2px 0 var(--line2)
+}
+.panel.tight{padding:16px 18px}
+.frame{outline:1px solid var(--line2);outline-offset:5px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+
+blockquote.q{
+  margin:0;padding:14px 18px;border-left:3px solid var(--cinnabar);
+  background:color-mix(in srgb,var(--paper2) 62%,transparent);font-size:15px;line-height:2.05;letter-spacing:.06em
+}
+blockquote.q .src{display:block;font-size:12px;color:var(--ink2);letter-spacing:.14em;margin-top:6px}
+.vert{
+  writing-mode:vertical-rl;text-orientation:upright;font-family:"Ma Shan Zheng",serif;
+  font-size:20px;letter-spacing:.22em;line-height:2.1;color:var(--ink);
+  border:1px solid var(--line);padding:16px 12px;background:var(--card);height:250px
+}
+.note{font-size:12.8px;color:var(--ink2);line-height:1.85;margin-top:10px}
+.tag{display:inline-block;font-size:11.5px;border:1px solid var(--line);color:var(--ink2);padding:1px 8px;margin:2px 4px 2px 0;letter-spacing:.1em}
+.tag.r{border-color:var(--cinnabar);color:var(--cinnabar)}
+ul.l{margin:.4em 0;padding-left:1.3em}
+ul.l li{margin:.34em 0;font-size:14.3px;text-align:justify}
+
+/* ---------- 時間軸 ---------- */
+.rail{display:flex;gap:8px;overflow-x:auto;padding:6px 2px 14px;scroll-snap-type:x mandatory}
+.rail::-webkit-scrollbar{height:6px}
+.rail::-webkit-scrollbar-thumb{background:var(--line)}
+.rbtn{
+  flex:0 0 auto;min-width:104px;scroll-snap-align:center;cursor:pointer;background:var(--card);
+  border:1px solid var(--line);padding:11px 8px;text-align:center;transition:.3s;color:var(--ink)
+}
+.rbtn .a{font-size:12px;color:var(--ink2);letter-spacing:.1em}
+.rbtn .n{font-family:"Ma Shan Zheng",serif;font-size:25px;line-height:1.25;margin-top:3px}
+.rbtn:hover{border-color:var(--cinnabar);transform:translateY(-3px)}
+.rbtn.on{background:var(--ink);border-color:var(--ink);color:var(--card)}
+.rbtn.on .a{color:var(--gold)}
+.rbtn.on .n{color:#fff}
+html[data-theme="night"] .rbtn.on{background:var(--cinnabar);border-color:var(--cinnabar)}
+.stagebox{display:grid;grid-template-columns:1.15fr .85fr;gap:22px;margin-top:10px}
+.bars{margin-top:14px}
+.barrow{margin:9px 0}
+.barrow .lb{display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink2);letter-spacing:.08em}
+.bar{height:9px;background:var(--paper2);border:1px solid var(--line2);margin-top:3px;position:relative;overflow:hidden}
+.bar i{display:block;height:100%;width:0;transition:width .8s cubic-bezier(.2,.8,.2,1)}
+.bar.c i{background:linear-gradient(90deg,var(--cinnabar),var(--cinnabar2))}
+.bar.j i{background:linear-gradient(90deg,var(--jade),color-mix(in srgb,var(--jade) 55%,var(--gold)))}
+
+/* ---------- Tabs ---------- */
+.tabs{display:flex;gap:0;flex-wrap:wrap;border-bottom:1px solid var(--line);margin-bottom:14px}
+.tabs button{
+  background:none;border:1px solid transparent;border-bottom:none;cursor:pointer;padding:8px 15px;
+  font-size:13.5px;letter-spacing:.12em;color:var(--ink2);transition:.25s;margin-bottom:-1px
+}
+.tabs button:hover{color:var(--cinnabar)}
+.tabs button.on{color:var(--cinnabar);border-color:var(--line);background:var(--card);font-weight:700}
+table.data{width:100%;border-collapse:collapse;font-size:14px}
+table.data th,table.data td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+table.data th{background:var(--paper2);letter-spacing:.1em;font-size:13px;color:var(--ink)}
+table.data td.q2{font-size:13.6px;color:var(--ink)}
+table.data tr:hover td{background:color-mix(in srgb,var(--gold) 7%,transparent)}
+
+/* ---------- 五倫圖 ---------- */
+.relwrap{display:grid;grid-template-columns:minmax(300px,.95fr) 1.05fr;gap:24px;align-items:start}
+.relsvg{width:100%;height:auto;display:block}
+.relsvg .node circle{fill:var(--card);stroke:var(--line);stroke-width:1.5;transition:.3s;cursor:pointer}
+.relsvg .node text{font-family:"Noto Serif TC",serif;font-size:15px;fill:var(--ink);pointer-events:none;letter-spacing:.05em}
+.relsvg .node:hover circle{stroke:var(--cinnabar)}
+.relsvg .node.on circle{fill:var(--cinnabar);stroke:var(--cinnabar)}
+.relsvg .node.on text{fill:#fff}
+.relsvg .spoke{stroke:var(--line);stroke-width:1;stroke-dasharray:3 4}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:6px 0 14px}
+.chip{
+  cursor:pointer;background:var(--card);border:1px solid var(--line);color:var(--ink2);
+  padding:5px 13px;font-size:13px;letter-spacing:.1em;transition:.25s
+}
+.chip:hover{border-color:var(--cinnabar);color:var(--cinnabar)}
+.chip.on{background:var(--ink);border-color:var(--ink);color:var(--card)}
+html[data-theme="night"] .chip.on{background:var(--cinnabar);border-color:var(--cinnabar);color:#fff}
+
+/* ---------- 檢核 ---------- */
+.selfbox{display:grid;grid-template-columns:.85fr 1.15fr;gap:22px;align-items:start}
+.ring{width:106px;height:106px;margin:0 auto 8px;display:block}
+.ring circle{fill:none;stroke-width:8}
+.ring .bg{stroke:var(--paper2)}
+.ring .fg{stroke:var(--cinnabar);stroke-linecap:round;transition:stroke-dashoffset .7s}
+.ringtxt{text-align:center;font-size:13px;color:var(--ink2);letter-spacing:.12em}
+.citem{display:flex;gap:10px;padding:10px 0;border-bottom:1px dashed var(--line2);cursor:pointer}
+.citem:hover{background:color-mix(in srgb,var(--gold) 6%,transparent)}
+.citem input{margin-top:6px;accent-color:var(--cinnabar);width:15px;height:15px;flex:0 0 auto;cursor:pointer}
+.citem .y{font-size:14.2px;letter-spacing:.05em}
+.citem .b{font-size:12.8px;color:var(--ink2);margin-top:2px}
+.citem .m{font-size:12.5px;color:var(--jade);margin-top:3px}
+html[data-theme="night"] .citem .m{color:var(--jade)}
+.citem.done .y{color:var(--ink2);text-decoration:line-through;text-decoration-color:var(--cinnabar)}
+
+/* ---------- 時辰 ---------- */
+.hours{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.hbtn{
+  cursor:pointer;background:var(--card);border:1px solid var(--line);padding:10px 4px;text-align:center;transition:.3s;color:var(--ink)
+}
+.hbtn .z{font-family:"Ma Shan Zheng",serif;font-size:23px;line-height:1.2}
+.hbtn .t{font-size:11px;color:var(--ink2);letter-spacing:.06em}
+.hbtn:hover{transform:translateY(-3px);border-color:var(--cinnabar)}
+.hbtn.on{background:var(--indigo);border-color:var(--indigo);color:#fff}
+.hbtn.on .t{color:#d9e0ee}
+html[data-theme="night"] .hbtn.on{background:var(--cinnabar);border-color:var(--cinnabar)}
+
+/* ---------- 情境／測驗 ---------- */
+.scene{border:1px solid var(--line);background:var(--card);padding:16px 18px;margin-bottom:14px}
+.scene .st{font-size:14.6px;margin-bottom:10px}
+.scene .st b{color:var(--cinnabar)}
+.opt{
+  display:block;width:100%;text-align:left;background:var(--paper);border:1px solid var(--line2);
+  padding:9px 13px;margin:6px 0;cursor:pointer;font-size:13.8px;color:var(--ink);transition:.25s;line-height:1.7
+}
+.opt:hover:not(:disabled){border-color:var(--cinnabar);transform:translateX(3px)}
+.opt:disabled{cursor:default;opacity:.85}
+.opt.ok{background:color-mix(in srgb,var(--jade) 18%,var(--card));border-color:var(--jade);font-weight:700}
+.opt.no{background:color-mix(in srgb,var(--cinnabar) 14%,var(--card));border-color:var(--cinnabar)}
+.exp{display:none;margin-top:10px;padding:11px 14px;border-left:3px solid var(--gold);background:var(--paper2);font-size:13.4px}
+.exp.show{display:block;animation:fade .5s}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.qq{border-bottom:1px solid var(--line2);padding:16px 0}
+.qq .qh{font-size:15px;margin-bottom:8px}
+.qq .qh i{font-style:normal;color:var(--cinnabar);font-weight:700;margin-right:6px}
+.qq label{display:flex;gap:9px;font-size:13.8px;padding:6px 9px;cursor:pointer;border:1px solid transparent;transition:.2s;line-height:1.75}
+.qq label:hover{border-color:var(--line2);background:var(--paper2)}
+.qq input{accent-color:var(--cinnabar);margin-top:5px}
+.qq label.ok{background:color-mix(in srgb,var(--jade) 16%,transparent);border-color:var(--jade)}
+.qq label.no{background:color-mix(in srgb,var(--cinnabar) 13%,transparent);border-color:var(--cinnabar)}
+.qq .fb{display:none;margin-top:8px;font-size:13px;padding:9px 12px;border-left:3px solid var(--gold);background:var(--paper2)}
+.qq .fb.show{display:block}
+.btn{
+  cursor:pointer;background:var(--ink);color:var(--card);border:1px solid var(--ink);
+  padding:10px 26px;font-size:14px;letter-spacing:.18em;transition:.3s
+}
+.btn:hover{background:var(--cinnabar);border-color:var(--cinnabar)}
+.btn.ghost{background:none;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{color:var(--cinnabar);border-color:var(--cinnabar);background:none}
+#score{font-family:"Ma Shan Zheng",serif;font-size:44px;color:var(--cinnabar);line-height:1}
+
+/* ---------- 辯證 ---------- */
+.dial{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.dial .col{border-top:3px solid var(--ink);background:var(--card);border-left:1px solid var(--line);border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 18px}
+.dial .col.a{border-top-color:var(--indigo)}
+.dial .col.b{border-top-color:var(--cinnabar)}
+.dial .col.c{border-top-color:var(--jade)}
+.dial h4{font-size:16px;letter-spacing:.16em;margin-bottom:4px}
+.dial .zh{font-family:"Ma Shan Zheng",serif;font-size:26px;color:var(--gold);line-height:1}
+.acc{border:1px solid var(--line);background:var(--card);margin-bottom:9px}
+.acc>button{
+  width:100%;background:none;border:none;cursor:pointer;text-align:left;padding:13px 16px;
+  font-size:14.6px;color:var(--ink);letter-spacing:.08em;display:flex;gap:10px;align-items:center
+}
+.acc>button .mk{margin-left:auto;color:var(--cinnabar);font-size:16px;transition:.3s}
+.acc>button[aria-expanded="true"] .mk{transform:rotate(45deg)}
+.acc .bd{display:none;padding:0 18px 16px;font-size:14px;border-top:1px dashed var(--line2)}
+.acc .bd.open{display:block;animation:fade .4s}
+
+/* ---------- 名詞 ---------- */
+details.gl{border:1px solid var(--line);background:var(--card);padding:0;margin-bottom:8px}
+details.gl summary{cursor:pointer;padding:11px 15px;font-size:14.6px;letter-spacing:.1em;list-style:none;display:flex;gap:10px}
+details.gl summary::-webkit-details-marker{display:none}
+details.gl summary b{color:var(--cinnabar)}
+details.gl summary .ar{margin-left:auto;color:var(--ink2);transition:.3s}
+details.gl[open] summary .ar{transform:rotate(90deg)}
+details.gl .b{padding:0 15px 13px;font-size:13.6px;border-top:1px dashed var(--line2);color:var(--ink2)}
+
+/* ---------- 其他 ---------- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s}
+.reveal.in{opacity:1;transform:none}
+footer{border-top:2px solid var(--ink);padding:34px 20px 60px;background:var(--paper2)}
+footer .wrap{font-size:13px;color:var(--ink2)}
+footer h4{font-size:15px;color:var(--ink);letter-spacing:.16em;margin-bottom:8px}
+#toTop{
+  position:fixed;right:18px;bottom:20px;z-index:85;width:44px;height:44px;cursor:pointer;
+  background:var(--card);border:1px solid var(--line);color:var(--cinnabar);font-size:18px;
+  opacity:0;pointer-events:none;transition:.35s
+}
+#toTop.show{opacity:1;pointer-events:auto}
+#toTop:hover{background:var(--cinnabar);color:#fff;border-color:var(--cinnabar)}
+#paper{display:none;position:fixed;inset:0;z-index:200;background:rgba(20,16,10,.72);padding:24px;overflow:auto}
+#paper.show{display:block}
+#paper .in{max-width:660px;margin:26px auto;background:var(--card);border:1px solid var(--line);padding:28px 30px;position:relative}
+#paper .cls{position:absolute;right:10px;top:8px;background:none;border:none;font-size:22px;cursor:pointer;color:var(--ink2)}
+#paperTxt{white-space:pre-wrap;font-size:14.5px;line-height:2.1;font-family:"Ma Shan Zheng","Noto Serif TC",serif;letter-spacing:.08em}
+.toast{
+  position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);z-index:300;
+  background:var(--ink);color:var(--card);padding:10px 22px;font-size:13.5px;letter-spacing:.12em;
+  opacity:0;pointer-events:none;transition:.35s
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:960px){
+  .grid2,.grid3,.grid4,.stagebox,.relwrap,.selfbox,.dial{grid-template-columns:1fr}
+  .q3{grid-template-columns:1fr}
+  .hours{grid-template-columns:repeat(3,1fr)}
+  #navlinks{display:none;position:absolute;top:100%;left:0;right:0;background:var(--paper);border-bottom:1px solid var(--line);flex-direction:column;padding:8px}
+  #navlinks.open{display:flex}
+  #menuBtn{display:block;margin-left:auto}
+  #sidenav{display:none}
+  .vert{height:auto;writing-mode:horizontal-tb;font-size:19px}
+  section.chap{padding:56px 16px}
+  .panel{padding:17px 15px}
+}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+
+<header id="topbar">
+  <span class="seal"><svg viewBox="0 0 60 60" aria-hidden="true"><rect x="2.5" y="2.5" width="55" height="55" rx="5" fill="#9c2b21"/><rect x="6" y="6" width="48" height="48" rx="3" fill="none" stroke="#f6ecd9" stroke-width="1.4" opacity=".75"/><text x="30" y="44" text-anchor="middle" font-size="34" fill="#f8f1e2" font-family="Ma Shan Zheng,serif">禮</text></svg></span>
+  <span class="brand"><b>曲禮三問</b><span>《禮記‧曲禮》邏輯思辨研習卷</span></span>
+  <button id="menuBtn" aria-label="選單">目錄 ▾</button>
+  <nav id="navlinks"></nav>
+  <button id="themeBtn">夜讀</button>
+</header>
+
+<nav id="sidenav" aria-label="章節"></nav>
+
+<!-- ================= HERO ================= -->
+<section id="hero">
+  <svg class="art" viewBox="0 0 1440 620" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="gMist" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#a2814a" stop-opacity=".10"/>
+        <stop offset="1" stop-color="#a2814a" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#2d3d59" stop-opacity=".16"/>
+        <stop offset="1" stop-color="#2d3d59" stop-opacity=".05"/>
+      </linearGradient>
+      <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#211d18" stop-opacity=".24"/>
+        <stop offset="1" stop-color="#211d18" stop-opacity=".07"/>
+      </linearGradient>
+      <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#211d18" stop-opacity=".42"/>
+        <stop offset="1" stop-color="#211d18" stop-opacity=".14"/>
+      </linearGradient>
+    </defs>
+    <rect width="1440" height="620" fill="url(#gMist)"/>
+    <circle cx="1130" cy="130" r="52" fill="#9c2b21" opacity=".14"/>
+    <path d="M0,330 C110,285 180,235 268,255 C356,275 402,225 486,215 C570,205 618,258 706,252 C794,246 846,200 938,214 C1030,228 1082,282 1176,272 C1270,262 1350,226 1440,246 L1440,620 L0,620 Z" fill="url(#g1)"/>
+    <path d="M0,404 C96,376 168,332 254,352 C340,372 392,330 470,326 C548,322 604,364 690,358 C776,352 838,312 926,326 C1014,340 1072,388 1160,382 C1248,376 1338,344 1440,362 L1440,620 L0,620 Z" fill="url(#g2)"/>
+    <ellipse cx="330" cy="392" rx="330" ry="26" fill="#f3ead5" opacity=".55"/>
+    <ellipse cx="1120" cy="356" rx="290" ry="20" fill="#f3ead5" opacity=".45"/>
+    <path d="M0,486 C120,462 190,428 288,444 C386,460 442,424 528,424 C614,424 672,462 764,458 C856,454 924,418 1022,430 C1120,442 1186,480 1276,474 C1340,470 1394,456 1440,448 L1440,620 L0,620 Z" fill="url(#g3)"/>
+    <g stroke="#211d18" stroke-opacity=".38" fill="none" stroke-width="1.6">
+      <path d="M980,120 q14,-10 28,0 q14,-10 28,0"/>
+      <path d="M1024,148 q11,-8 22,0 q11,-8 22,0"/>
+      <path d="M946,152 q9,-7 18,0 q9,-7 18,0"/>
+    </g>
+    <g stroke="#211d18" stroke-opacity=".28" fill="none" stroke-width="1.4">
+      <path d="M120,470 v-52 M120,418 q-22,-8 -30,-30 M120,424 q20,-6 28,-26"/>
+      <path d="M1318,462 v-46 M1318,416 q-18,-7 -25,-25 M1318,420 q17,-5 24,-22"/>
+    </g>
+  </svg>
+  <div class="inner">
+    <svg class="hero-seal" viewBox="0 0 60 60" aria-hidden="true"><rect x="2.5" y="2.5" width="55" height="55" rx="4" fill="#9c2b21"/><rect x="6.5" y="6.5" width="47" height="47" fill="none" stroke="#f6ecd9" stroke-width="1.2" opacity=".7"/><text x="30" y="43" text-anchor="middle" font-size="32" fill="#f8f1e2" font-family="Ma Shan Zheng,serif">曲禮</text></svg>
+    <h1>曲禮三問</h1>
+    <div class="sub">定位・規範・實踐 ── 從邏輯思辨重讀《禮記‧曲禮》</div>
+    <div id="typed" aria-live="polite"></div>
+    <div class="hero-src">──《禮記‧曲禮上》卷首</div>
+    <div class="q3">
+      <a href="#q1"><span class="no">壹</span><h3>人生各階段之責任與社會定位</h3><p>自「七年曰悼」至「百年曰期頤」：年齡如何被命名，名分如何決定權利、義務與刑責。</p></a>
+      <a href="#q2"><span class="no">貳</span><h3>人倫規範：身分與行為準則</h3><p>父子、君臣、夫婦、兄弟、長幼、朋友、賓主、師生──八種身分，各有雙向之義務。</p></a>
+      <a href="#q3"><span class="no">參</span><h3>禮如何落實於生活</h3><p>由「毋不敬」之心，經「儼若思」之貌、「安定辭」之言，落到十二時辰與七種日常情境。</p></a>
+    </div>
+    <div class="scroll-hint">卷軸下展 ▾ 依序研習</div>
+  </div>
+</section>
+
+<main>
+<!-- ================= 解題 ================= -->
+<section class="chap" id="intro">
+  <div class="wrap">
+    <div class="chead reveal"><span class="juan">解題</span><h2>何謂「曲禮」・三問何以相續</h2><span class="en">PROLEGOMENA</span></div>
+    <p class="lead reveal">〈曲禮〉為《小戴禮記》四十九篇之首，分上下二篇。鄭玄《三禮目錄》謂：「名曰〈曲禮〉者，是《儀禮》之舊名……<b>委屈說禮之事</b>。」朱子亦以「曲」為「<b>細微曲折</b>」。故〈曲禮〉之體，不在玄遠之論，而在<b>應對、進退、飲食、居處、喪祭</b>之節目條文。全篇以三句總綱領起：「毋不敬，儼若思，安定辭，安民哉！」──<b>心之敬、貌之儼、言之定</b>，正是本卷三問的邏輯軸線。</p>
+
+    <div class="grid2 reveal" style="margin-top:20px">
+      <div class="panel frame">
+        <h4 class="min">一、名實之辨：「曲」與「禮」</h4>
+        <ul class="l">
+          <li><b>曲</b>：委曲、細節、曲折之情境。禮必因事而現，無抽象空懸之禮。</li>
+          <li><b>禮</b>：「夫禮者，所以定親疏、決嫌疑、別同異、明是非也。」──禮是<b>分辨與決斷的準則系統</b>，具明確的認知功能。</li>
+          <li><b>合而言之</b>：禮在細微處顯其理，故「曲禮」即是「於具體情境中作正確判斷之學」，與本卷「邏輯思辨」之取向天然相合。</li>
+        </ul>
+      </div>
+      <div class="panel frame">
+        <h4 class="min">二、三問之邏輯結構</h4>
+        <ul class="l">
+          <li><b>第一問・定位（我是誰）</b>：先確認所處之<b>生命階段</b>與<b>社會名分</b>。名不正則言不順，此為一切規範之前提。</li>
+          <li><b>第二問・規範（當守何則）</b>：由名分推出<b>雙向義務</b>；身分不同，準則即異，故須逐一檢核。</li>
+          <li><b>第三問・實踐（如何落實）</b>：將規範化為<b>時間、空間、身體、言語</b>之具體動作，並經情境判斷加以檢驗。</li>
+          <li>三者成<b>「前提→推論→驗證」</b>之論證鏈：定位為前提，規範為推論，實踐為驗證與修正。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="panel reveal" style="margin-top:20px">
+      <h4 class="min">三、三問關係圖</h4>
+      <svg viewBox="0 0 720 260" style="width:100%;height:auto" role="img" aria-label="三問邏輯關係圖">
+        <defs>
+          <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 z" fill="#9c2b21"/></marker>
+        </defs>
+        <line x1="160" y1="80" x2="540" y2="80" stroke="#c4ae85" stroke-dasharray="4 5"/>
+        <line x1="140" y1="98" x2="345" y2="205" stroke="#c4ae85" stroke-dasharray="4 5"/>
+        <line x1="580" y1="98" x2="375" y2="205" stroke="#c4ae85" stroke-dasharray="4 5"/>
+        <path d="M165,72 L535,72" stroke="#9c2b21" stroke-width="1.4" marker-end="url(#ar)"/>
+        <path d="M575,105 L390,200" stroke="#9c2b21" stroke-width="1.4" marker-end="url(#ar)"/>
+        <path d="M330,205 L145,105" stroke="#9c2b21" stroke-width="1.4" marker-end="url(#ar)" opacity=".55"/>
+        <g><rect x="55" y="42" width="120" height="52" fill="#fbf5e7" stroke="#2d3d59" stroke-width="1.4"/><text x="115" y="66" text-anchor="middle" font-size="15" fill="#2d3d59">壹・定位</text><text x="115" y="84" text-anchor="middle" font-size="11" fill="#544a3c">階段・名分</text></g>
+        <g><rect x="545" y="42" width="120" height="52" fill="#fbf5e7" stroke="#9c2b21" stroke-width="1.4"/><text x="605" y="66" text-anchor="middle" font-size="15" fill="#9c2b21">貳・規範</text><text x="605" y="84" text-anchor="middle" font-size="11" fill="#544a3c">雙向義務</text></g>
+        <g><rect x="300" y="196" width="120" height="52" fill="#fbf5e7" stroke="#3d5a50" stroke-width="1.4"/><text x="360" y="220" text-anchor="middle" font-size="15" fill="#3d5a50">參・實踐</text><text x="360" y="238" text-anchor="middle" font-size="11" fill="#544a3c">時辰・情境</text></g>
+        <text x="360" y="60" text-anchor="middle" font-size="12" fill="#544a3c">名定而後則立</text>
+        <text x="500" y="170" text-anchor="middle" font-size="12" fill="#544a3c">則立而後可行</text>
+        <text x="200" y="170" text-anchor="middle" font-size="12" fill="#544a3c">行而後知其失，反求諸名</text>
+        <circle cx="360" cy="122" r="26" fill="none" stroke="#a2814a" stroke-width="1.2"/>
+        <text x="360" y="129" text-anchor="middle" font-size="19" fill="#9c2b21" font-family="Ma Shan Zheng,serif">敬</text>
+      </svg>
+      <p class="note">說明：中樞之「敬」貫通三問──〈曲禮上〉：「毋不敬。」無敬則定位為虛名、規範為苛條、實踐為表演。</p>
+    </div>
+
+    <div class="panel reveal" style="margin-top:20px">
+      <h4 class="min">研習操作指引</h4>
+      <div class="grid4">
+        <div><span class="tag r">點擊</span><p class="note">年齡軸節點、五倫圖節點、十二時辰、名詞卡片，皆可展開原文與疏解。</p></div>
+        <div><span class="tag r">勾選</span><p class="note">「身分檢核」可勾選自省項目，進度自動留存於本機瀏覽器。</p></div>
+        <div><span class="tag r">判斷</span><p class="note">情境題與測驗皆附《曲禮》原文依據，先作答，後讀疏解。</p></div>
+        <div><span class="tag r">生成</span><p class="note">末卷可將已勾選之準則彙為「修身箋」，一鍵複製留存。</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 卷一 ================= -->
+<section class="chap" id="q1">
+  <div class="wrap">
+    <div class="chead reveal"><span class="juan">卷一</span><h2>人生各階段之責任與社會定位</h2><span class="en">Q1 · STAGES &amp; POSITIONS</span></div>
+    <p class="lead reveal">《曲禮上》以十個名詞為人生分期：<b>悼、幼、弱、壯、強、艾、耆、老、耄、期頤</b>。此非僅生理描述，而是一套<b>「命名→賦權→課責」</b>的制度設計：每一階段同時被賦予<b>身分</b>、<b>義務</b>與<b>豁免</b>。以下時間軸可逐節點研讀。</p>
+
+    <div class="panel reveal">
+      <h4 class="min">〈原文全節〉《禮記‧曲禮上》</h4>
+      <blockquote class="q">人生十年曰幼，學。二十曰弱，冠。三十曰壯，有室。四十曰強，而仕。五十曰艾，服官政。六十曰耆，指使。七十曰老，而傳。八十、九十曰耄。七年曰悼。悼與耄，雖有罪，不加刑焉。百年曰期、頤。<span class="src">──《禮記‧曲禮上》第七節</span></blockquote>
+    </div>
+
+    <h3 class="blk">一之一・十段年齡軸（點擊節點研讀）</h3>
+    <div class="rail reveal" id="rail" role="tablist" aria-label="人生階段"></div>
+    <div class="panel reveal" id="stagePanel" aria-live="polite"></div>
+
+    <h3 class="blk">一之二・社會定位的四個維度</h3>
+    <p class="lead reveal" style="margin-top:0">《曲禮下》另以<b>容貌辭氣、生死之名、祭祀之權、職分之問</b>四組條文，界定人在社會座標中的位置。此即「正名」之邏輯：同一行為，因名分不同而異其辭、異其權、異其責。</p>
+    <div class="panel reveal">
+      <div class="tabs" id="rankTabs"></div>
+      <div id="rankBody"></div>
+    </div>
+
+    <h3 class="blk">一之三・邏輯思辨</h3>
+    <div class="grid2 reveal">
+      <div class="panel frame">
+        <h4 class="min">辨一：豁免的對稱結構</h4>
+        <p style="font-size:14.2px">「悼與耄，雖有罪，不加刑焉」置於年齡序列之<b>末</b>而非依序置於首，形成「<b>七年 ↔ 八九十</b>」的對稱包裹。其論證可整理為三段論：</p>
+        <ul class="l">
+          <li>大前提：刑以<b>責任能力</b>（識慮能辨是非）為基礎。</li>
+          <li>小前提：悼（識慮未開）與耄（識慮已衰）皆不具完全責任能力。</li>
+          <li>結論：雖有罪，不加刑──<b>以「教」與「養」代「罰」</b>。</li>
+        </ul>
+        <p class="note">思辨：此豁免是「憐憫」抑或「人格否定」？若僅出於憐憫，則被豁免者亦被排除於責任主體之外；禮家則以「童子立必正方，不傾聽」補之以<b>教育性責任</b>，使豁免不成為放任。</p>
+      </div>
+      <div class="panel frame">
+        <h4 class="min">辨二：「弱」而「冠」──權利先於能力</h4>
+        <p style="font-size:14.2px">二十稱「弱」，卻於是年行<b>冠禮</b>而取字。「弱」是能力判斷（實然），「冠」是名分判斷（應然）。二者並置，顯示禮制的設計邏輯：</p>
+        <ul class="l">
+          <li><b>先立其名</b>：以冠禮宣告成人，使之承擔義務（婚、役、交接、執摯）。</li>
+          <li><b>後成其能</b>：以其尚「弱」，故三十方曰「壯」，四十方曰「強而仕」。</li>
+          <li>由此可見〈曲禮〉不採「能力足而後予權」的單一標準，而採「<b>名分先立、德行續養</b>」的漸進模型。</li>
+        </ul>
+        <p class="note">對照：《曲禮上》「童子委摯而退」──未冠者不具正式交接之資格；冠後方執摯相見。名分確立，社會互動的規則才生效。</p>
+      </div>
+    </div>
+    <div class="grid2 reveal" style="margin-top:18px">
+      <div class="panel frame">
+        <h4 class="min">辨三：「禮不下庶人，刑不上大夫」之正義</h4>
+        <blockquote class="q">禮不下庶人，刑不上大夫。刑人不在君側。<span class="src">──《禮記‧曲禮上》</span></blockquote>
+        <ul class="l">
+          <li><b>傳統疏解</b>：孔穎達謂庶人貧busy於耕稼，不能備禮，故「不下」謂不以貴者之禮<b>苛責</b>之；大夫有罪，不<b>陳刑具</b>於朝以辱士節，非謂免罪。</li>
+          <li><b>批判讀法</b>：此句亦可讀為禮與刑的<b>階級分工</b>──上層以禮自律，下層以刑驅之，實含不平等。</li>
+          <li><b>邏輯檢核</b>：兩讀之爭點在「下／上」是「<b>苛求</b>」義或「<b>施行</b>」義。若取後者，則與「雖負販者，必有尊也」自相矛盾；故經文內部存在<b>張力</b>，須以「自卑而尊人」之總原則作詮釋優先。</li>
+        </ul>
+      </div>
+      <div class="panel frame">
+        <h4 class="min">辨四：年齡序列的循環結構</h4>
+        <p style="font-size:14.2px">將十段依「<b>受養／受教</b>」與「<b>任事／負責</b>」二軸量化（見上圖長條），可見一清晰曲線：受養高→責任升→責任頂→受養復高。人生被理解為<b>「受施→施報→受報」</b>的循環，與「大上貴德，其次務施報。禮尚往來」之原理同構。</p>
+        <p class="note">思辨：現代社會把「老」視為負擔，而〈曲禮〉以「期、頤」作結──百年者受天下之養，是循環的<b>完成</b>而非終止。此種時間觀對高齡社會之政策倫理有何啟發？</p>
+      </div>
+    </div>
+
+    <h3 class="blk">一之四・正・反・合</h3>
+    <div class="dial reveal">
+      <div class="col a"><div class="zh">正</div><h4>分期即賦責</h4><p style="font-size:13.8px">年齡命名提供了<b>可預期</b>的人生座標：十歲知當學，二十知當冠，四十知當任事。個人得以規劃，國家得以任使，家族得以交接。</p></div>
+      <div class="col b"><div class="zh">反</div><h4>僵化與排除</h4><p style="font-size:13.8px">以十年為刻度的分期忽略個體差異；「四十而仕」「七十而傳」若化為硬規則，將排除早慧與晚成者，亦可能成為<b>強迫退休或延宕交棒</b>的口實。</p></div>
+      <div class="col c"><div class="zh">合</div><h4>經權並用</h4><p style="font-size:13.8px">〈曲禮〉自設彈性條款：「<b>禮從宜，使從俗</b>」「貧者不以貨財為禮，老者不以筋力為禮」「大夫七十而致事，若不得謝，則必賜之几杖」。可見分期是<b>常規</b>而非<b>律令</b>，須以「宜」校準。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 卷二 ================= -->
+<section class="chap" id="q2">
+  <div class="wrap">
+    <div class="chead reveal"><span class="juan">卷二</span><h2>人倫規範：身分與應守之行為準則</h2><span class="en">Q2 · ROLES &amp; NORMS</span></div>
+    <p class="lead reveal">〈曲禮〉的人倫規範有一項極其重要的邏輯特徵：<b>義務是雙向的、且隨關係性質而異其强度與可斷性</b>。父子天合，故「三諫不聽則號泣而隨之」；君臣義合，故「三諫不聽則逃之」。以下先以六倫圖定位，再以八種身分逐條檢核。</p>
+
+    <h3 class="blk">二之一・人倫關係圖（點擊節點）</h3>
+    <div class="panel reveal">
+      <div class="relwrap">
+        <div>
+          <svg class="relsvg" viewBox="0 0 460 460" id="relSvg" role="img" aria-label="人倫關係圖"></svg>
+          <div class="chips" id="relChips" style="margin-top:8px"></div>
+        </div>
+        <div id="relPanel"></div>
+      </div>
+    </div>
+
+    <h3 class="blk">二之二・身分準則檢核表</h3>
+    <p class="lead reveal" style="margin-top:0">請擇己身當前所扮之身分（可複選），逐條勾選「本週已踐行」之準則。勾選進度儲存於本機瀏覽器，並可於卷四生成「修身箋」。</p>
+    <div class="panel reveal">
+      <div class="selfbox">
+        <div>
+          <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="bg" cx="60" cy="60" r="50"/>
+            <circle class="fg" id="ringFg" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="314" transform="rotate(-90 60 60)"/>
+            <text id="ringTxt" x="60" y="68" text-anchor="middle" font-size="26" fill="#9c2b21" font-family="Ma Shan Zheng,serif">0</text>
+          </svg>
+          <div class="ringtxt">已踐行條數／所選身分總條數</div>
+          <div class="chips" id="roleChips" style="margin-top:14px"></div>
+          <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn ghost" id="roleAll">全選</button>
+            <button class="btn ghost" id="roleClear">清空勾選</button>
+          </div>
+        </div>
+        <div id="roleBody"></div>
+      </div>
+    </div>
+
+    <h3 class="blk">二之三・邏輯思辨</h3>
+    <div class="grid2 reveal">
+      <div class="panel frame">
+        <h4 class="min">辨一：同一「諫」，兩種結論</h4>
+        <table class="data">
+          <tr><th>關係</th><th>經文</th><th>三諫不聽之後</th><th>關係性質</th></tr>
+          <tr><td>君臣</td><td class="q2">「為人臣之禮，不顯諫，三諫而不聽，則逃之。」</td><td><b>逃</b>（去職、離去）</td><td>義合──可斷</td></tr>
+          <tr><td>父子</td><td class="q2">「子之事親也，三諫而不聽，則號泣而隨之。」</td><td><b>隨</b>（哭而相隨不捨）</td><td>天合──不可斷</td></tr>
+        </table>
+        <p class="note">論證分析：兩條共用「三諫」之程序（<b>次數限制＝尊重對方自主</b>），卻導出相反之結論。差別只在關係能否解除。可知〈曲禮〉之規範推論是<b>「關係性質 → 行為上限」</b>的函數式推理，而非一刀切。</p>
+        <p class="note">延伸：「不顯諫」亦含邏輯──公開指責使對方無退路，反降低採納機率；故程序上先「隱」後「三」，是<b>說服效率</b>的考量。</p>
+      </div>
+      <div class="panel frame">
+        <h4 class="min">辨二：可量化的長幼規則</h4>
+        <blockquote class="q">年長以倍，則父事之；十年以長，則兄事之；五年以長，則肩隨之。群居五人，則長者必異席。<span class="src">──《禮記‧曲禮上》</span></blockquote>
+        <ul class="l">
+          <li>此為罕見的<b>數值化規範</b>：倍齡→以父禮事之；差十歲→以兄禮事之；差五歲→「肩隨」（並行而稍後）。</li>
+          <li>「群居五人，長者必異席」則設定<b>門檻值</b>：人數達五，即須另設獨席以尊長者。</li>
+          <li>邏輯價值：把模糊的「敬老」轉為<b>可操作、可檢驗</b>的判定條件，減免個案爭議。</li>
+          <li>思辨：數值化之代價是<b>忽略德與位</b>。若長者不德，「父事之」是否仍成立？〈曲禮〉以「愛而知其惡，憎而知其善」補之──敬意不因評價而全廢，惟「事之」之強度可依實情調整。</li>
+        </ul>
+      </div>
+    </div>
+    <div class="grid2 reveal" style="margin-top:18px">
+      <div class="panel frame">
+        <h4 class="min">辨三：「自卑而尊人」的普遍性論證</h4>
+        <blockquote class="q">夫禮者，自卑而尊人。雖負販者，必有尊也，而況富貴乎！富貴而知好禮，則不驕不淫；貧賤而知好禮，則志不懾。<span class="src">──《禮記‧曲禮上》</span></blockquote>
+        <ul class="l">
+          <li><b>論證結構</b>：以極端案例（負販者，社會最底層）作<b>下限檢驗</b>──若連負販者亦必有尊，則尊嚴之普遍性得證（a fortiori，「而況富貴乎」）。</li>
+          <li>「自卑」非自我貶抑，而是<b>自我節制</b>（撙節、退讓），使他人之尊得以顯現。</li>
+          <li>由此，禮的尊嚴基礎由<b>身分</b>轉移到<b>人格</b>：這是〈曲禮〉內部對等級制最有力的自我修正。</li>
+        </ul>
+      </div>
+      <div class="panel frame">
+        <h4 class="min">辨四：時代局限之檢驗</h4>
+        <ul class="l">
+          <li><b>性別隔離</b>：「男女不雜坐，不同椸枷，不同巾櫛，不親授」「嫂叔不通問」──以物理隔絕代替界線協商，剝削女性之公共參與。</li>
+          <li><b>血親復讎</b>：「父之讎，弗與共戴天；兄弟之讎，不反兵；交遊之讎，不同國」──與現代法治之國家獨占暴力直接衝突。</li>
+          <li><b>等級儀節</b>：「天子穆穆……庶人僬僬」若解為價值高低，即成歧視；若解為<b>分工之容度</b>，則可保留。</li>
+          <li><b>批判方法</b>：區分禮之<b>形式條款</b>（可廢）與<b>原則</b>（敬、讓、別、信，可存）。判準：該條款是否仍服務於「自卑而尊人」？若否，即當因時而損益。</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="blk">二之四・正・反・合</h3>
+    <div class="dial reveal">
+      <div class="col a"><div class="zh">正</div><h4>名分定則義務明</h4><p style="font-size:13.8px">「君臣上下，父子兄弟，非禮不定。」身分使義務<b>可歸屬</b>：誰該告、誰該拜、誰該讓、誰該諫，皆有明文，社會互動因此可預期。</p></div>
+      <div class="col b"><div class="zh">反</div><h4>角色吞噬個人</h4><p style="font-size:13.8px">若一切行為皆由身分決定，個人之良知、情感與選擇即被壓縮；「父前子名，君前臣名」的稱名制度，正是<b>主體性被名分取代</b>的極致。</p></div>
+      <div class="col c"><div class="zh">合</div><h4>身分為介面，敬為主體</h4><p style="font-size:13.8px">身分只是<b>關係介面</b>，真正的行為主體仍是能「戒慎」之心：「君子戒慎，不失色於人」。以敬貫之，則名分為服務而非束縛。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 卷三 ================= -->
+<section class="chap" id="q3">
+  <div class="wrap">
+    <div class="chead reveal"><span class="juan">卷三</span><h2>禮如何落實於生活</h2><span class="en">Q3 · EMBODIMENT</span></div>
+    <p class="lead reveal">〈曲禮〉之「曲」，正指<b>落實</b>：禮必須化為容體、辭氣、器物、方位、時序的可執行動作。本卷以三層模型、十二時辰軸、七則情境判斷，檢驗「禮」如何由原則轉為生活。</p>
+
+    <h3 class="blk">三之一・「毋不敬」的三層落實模型</h3>
+    <div class="panel reveal">
+      <blockquote class="q">曲禮曰：毋不敬，儼若思，安定辭，安民哉！敖不可長，欲不可從，志不可滿，樂不可極。<span class="src">──《禮記‧曲禮上》卷首</span></blockquote>
+      <div class="grid3" style="margin-top:14px">
+        <div class="panel tight frame"><h4 class="min">第一層・心（毋不敬）</h4><p style="font-size:13.8px">「毋不敬」為<b>全称否定式</b>命題：無一事、無一時、無一人可不在敬中。邏輯上是最強的普遍要求，故能作為一切條文之總綱。</p><p class="note">配套四戒：敖不可長（不縱傲慢）、欲不可從（不縱私欲）、志不可滿（不自滿）、樂不可極（不放縱）──皆為「敬」的<b>反向定義</b>。</p></div>
+        <div class="panel tight frame"><h4 class="min">第二層・貌（儼若思）</h4><p style="font-size:13.8px">容貌莊重，如有所思。禮須<b>可被他人讀取</b>：「坐必安，執爾顏」「正爾容，聽必恭」「臨喪則必有哀色，介冑則有不可犯之色」──內在狀態須有外在訊號。</p><p class="note">身體條文：「遊毋倨，立毋跛，坐毋箕，寢毋伏」「斂髮毋髢，冠毋免，勞毋袒，暑毋褰裳」。</p></div>
+        <div class="panel tight frame"><h4 class="min">第三層・言（安定辭）</h4><p style="font-size:13.8px">言辭安和而確定：不躁、不贅、不妄。「禮不妄說人，不辭費」「毋勦說，毋雷同」「疑事毋質，直而勿有」。</p><p class="note">應對條文：「毋側聽，毋噭應，毋淫視，毋怠荒」「長者不及，毋儳言」「侍於君子，不顧望而對，非禮也」。</p></div>
+      </div>
+      <p class="note">模型要義：三層是<b>由內而外的推論鏈</b>（心→貌→言），亦是<b>由外而內的檢核鏈</b>（辭不定則知貌不儼，貌不儼則知心不敬）。故「安民哉」之效，始於一人之敬。</p>
+    </div>
+
+    <h3 class="blk">三之二・十二時辰生活禮儀軸（點擊時辰）</h3>
+    <div class="panel reveal">
+      <div class="hours" id="hours" role="tablist" aria-label="十二時辰"></div>
+      <div id="hourPanel" style="margin-top:16px"></div>
+    </div>
+
+    <h3 class="blk">三之三・日常情境判斷（先選，後讀疏解）</h3>
+    <div id="scenes" class="reveal"></div>
+
+    <h3 class="blk">三之四・落實的六項操作原則</h3>
+    <div class="grid3 reveal">
+      <div class="panel tight frame"><h4 class="min">一・先問後行</h4><p style="font-size:13.6px">「入竟而問禁，入國而問俗，入門而問諱。」「將適舍，求毋固。」──進入新場域，先蒐集規範資訊，不預設己意。</p></div>
+      <div class="panel tight frame"><h4 class="min">二・以讓為先</h4><p style="font-size:13.6px">「凡與客入者，每門讓於客。」「主人與客讓登。」「君子恭敬、撙節、退讓以明禮。」──讓不是退縮，而是把優先權明確化。</p></div>
+      <div class="panel tight frame"><h4 class="min">三・節度有數</h4><p style="font-size:13.6px">「樂不可極」「共食不飽」「長者舉未釂，少者不敢飲」──凡可過者，皆設上限。</p></div>
+      <div class="panel tight frame"><h4 class="min">四・隨宜損益</h4><p style="font-size:13.6px">「禮從宜，使從俗。」「君子行禮，不求變俗。」「貧者不以貨財為禮，老者不以筋力為禮。」──條件變，則形式變，敬意不變。</p></div>
+      <div class="panel tight frame"><h4 class="min">五・公私分明</h4><p style="font-size:13.6px">「公事不私議。」「在官言官，在府言府，在庫言庫，在朝言朝。」「朝言不及犬馬。」──場合決定言域。</p></div>
+      <div class="panel tight frame"><h4 class="min">六・慎於不睹</h4><p style="font-size:13.6px">「君子戒慎，不失色於人。」「毋側聽，毋噭應，毋淫視。」──無人在場時仍守節度，是禮之内化指標。</p></div>
+    </div>
+
+    <h3 class="blk">三之五・正・反・合</h3>
+    <div class="dial reveal">
+      <div class="col a"><div class="zh">正</div><h4>禮以養人</h4><p style="font-size:13.8px">「人有禮則安，無禮則危。」「道德仁義，非禮不成。」具體條文使抽象德目有<b>施力點</b>：無「昏定晨省」，孝只是一種情緒。</p></div>
+      <div class="col b"><div class="zh">反</div><h4>形式壓倒實質</h4><p style="font-size:13.8px">條文過密則生偽：只記「毋嚃羹、毋齧骨」而失其敬，遂成表演。故經文自警：「行修言道，禮之質也」「祭祀不祈，不樂葆大」。</p></div>
+      <div class="col c"><div class="zh">合</div><h4>質文相稱</h4><p style="font-size:13.8px">以「敬」為質、以「曲」為文；文不足則禮不顯，文過盛則禮失真。判斷準則：<b>此形式是否仍使人更相敬？</b>若否，即當依「禮從宜」而變。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 卷四 方法與修身箋 ================= -->
+<section class="chap" id="q4">
+  <div class="wrap">
+    <div class="chead reveal"><span class="juan">卷四</span><h2>思辨方法工具箱・修身箋</h2><span class="en">METHOD &amp; PRACTICE</span></div>
+    <p class="lead reveal">〈曲禮〉的論述方式本身即是一套邏輯技藝。以下六法，皆於經文中取得實例；末附「修身箋」生成器，將卷二所勾選之準則彙為一紙可持守之日課。</p>
+
+    <div class="panel reveal">
+      <div class="tabs" id="toolTabs"></div>
+      <div id="toolBody"></div>
+    </div>
+
+    <h3 class="blk">四之二・修身箋</h3>
+    <div class="panel reveal">
+      <p style="font-size:14px;color:var(--ink2)">依卷二勾選之身分與準則，生成個人日課。未勾選者亦可按「納入未踐之條」補入，以自警。</p>
+      <div class="chips" style="margin:10px 0">
+        <button class="btn ghost" id="genPaper">生成修身箋</button>
+        <button class="btn ghost" id="genAll">納入未踐之條</button>
+        <button class="btn" id="copyPaper">複製</button>
+      </div>
+      <div id="paperPrev" style="border:1px dashed var(--line);padding:18px 20px;font-family:'Ma Shan Zheng',serif;font-size:17px;line-height:2.2;letter-spacing:.08em;white-space:pre-wrap;min-height:120px;background:var(--paper2)">（尚未生成。請先於卷二勾選身分與準則。）</div>
+      <p class="note">此箋僅存於目前頁面，刷新即失；如需長久持守，請複製留存或抄錄於紙。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 卷五 測驗 ================= -->
+<section class="chap" id="quiz">
+  <div class="wrap">
+    <div class="chead reveal"><span class="juan">卷五</span><h2>研習測驗・十二題</h2><span class="en">ASSESSMENT</span></div>
+    <p class="lead reveal">題目涵蓋名義訓詁、條文理解、邏輯推論與現代轉譯。作答完畢請按「批改」，每題附<b>原文依據與解析</b>。</p>
+    <div class="panel reveal">
+      <div id="quizBody"></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:20px">
+        <button class="btn" id="gradeBtn">批改</button>
+        <button class="btn ghost" id="resetBtn">重測</button>
+        <div style="margin-left:auto;text-align:right">
+          <div id="score">──</div>
+          <div class="ringtxt" id="scoreTxt">尚未批改</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 附錄 ================= -->
+<section class="chap" id="appx">
+  <div class="wrap">
+    <div class="chead reveal"><span class="juan">附錄</span><h2>名詞疏解・校勘記・書目</h2><span class="en">APPENDIX</span></div>
+
+    <h3 class="blk">附一・名詞疏解（點擊展開）</h3>
+    <div class="grid2 reveal" id="gloss"></div>
+
+    <h3 class="blk">附二・校勘與異文記</h3>
+    <div class="panel reveal">
+      <table class="data">
+        <tr><th>條文</th><th>本作</th><th>異文／別本</th><th>按語</th></tr>
+        <tr><td class="q2">冬溫而夏凊</td><td>凊（清冷之意）</td><td>或作「清」</td><td>「凊」為本字，音 qìng，謂使其涼；作「清」者借字。</td></tr>
+        <tr><td class="q2">入竟而問禁</td><td>竟</td><td>境</td><td>「竟」為古字，「境」為後起分化字，義同。</td></tr>
+        <tr><td class="q2">太上貴德</td><td>太上</td><td>大上</td><td>《禮記正義》本作「大上」，古「大」「太」通。</td></tr>
+        <tr><td class="q2">士蹌蹌</td><td>蹌蹌</td><td>跄跄</td><td>異體字，皆謂行步有節度。</td></tr>
+        <tr><td class="q2">禮不踰節</td><td>踰</td><td>逾</td><td>異體，義同。</td></tr>
+        <tr><td class="q2">脩身踐言</td><td>脩</td><td>修</td><td>異體，義同。</td></tr>
+        <tr><td class="q2">八十、九十曰耄</td><td>八十九十曰耄</td><td>或分列「八十曰耄」「九十曰耄」</td><td>《說文》：「耄，年九十曰耄。」諸說不一，今從〈曲禮〉合稱。</td></tr>
+      </table>
+      <p class="note">本卷引文以維基文庫《禮記》通行本為底本，參校中國哲學書電子化計劃（ctext.org）所錄《禮記注疏》。標點為研習方便所加，非原文所有。</p>
+    </div>
+
+    <h3 class="blk">附三・延伸書目</h3>
+    <div class="panel reveal">
+      <ul class="l">
+        <li>漢・鄭玄 注，唐・孔穎達 正義：《禮記正義》（十三經注疏本）──「曲禮」得名與「禮不下庶人」疏解之所本。</li>
+        <li>清・孫希旦：《禮記集解》──條文訓詁最為詳備。</li>
+        <li>宋・朱熹：《儀禮經傳通解》──以〈曲禮〉為「禮之綱領」，分類編次。</li>
+        <li>《禮記‧內則》──與〈曲禮〉互為表裡，詳載居家事親之節目。</li>
+        <li>線上文本：維基文庫《禮記/曲禮上》《禮記/曲禮下》；中國哲學書電子化計劃（ctext.org）《禮記：曲禮上》《曲禮下》。</li>
+      </ul>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="grid3">
+      <div>
+        <h4>本卷宗旨</h4>
+        <p>以「定位・規範・實踐」三問為軸，重讀《禮記‧曲禮》，並於每一條文之後附以邏輯分析、正反辯證與現代轉譯，供研習者自省與思辨。</p>
+      </div>
+      <div>
+        <h4>研習提醒</h4>
+        <p>經典之條文有其歷史語境。凡涉性別、等級、刑罰之規定，本卷皆列「反題」以供批判性檢視，務求「取其敬讓之原則，察其時代之局限」。</p>
+      </div>
+      <div>
+        <h4>末句</h4>
+        <p style="font-family:'Ma Shan Zheng',serif;font-size:19px;color:var(--cinnabar);letter-spacing:.14em">人有禮則安，無禮則危。<br>故曰：禮者，不可不學也。</p>
+      </div>
+    </div>
+    <p class="note" style="margin-top:18px">© 曲禮三問・互動研習卷 ｜ 引文出處：《禮記‧曲禮上》《曲禮下》｜ 頁面不蒐集任何個人資料，勾選紀錄僅存於瀏覽器本機。</p>
+  </div>
+</footer>
+
+<button id="toTop" aria-label="回到卷首">▲</button>
+
+<div id="paper" role="dialog" aria-modal="true" aria-label="修身箋">
+  <div class="in">
+    <button class="cls" id="paperClose" aria-label="關閉">✕</button>
+    <h3 style="text-align:center;font-family:'Ma Shan Zheng',serif;font-size:28px;letter-spacing:.2em;color:var(--cinnabar)">修 身 箋</h3>
+    <div id="paperTxt"></div>
+    <div style="text-align:center;margin-top:16px"><button class="btn" id="copyPaper2">複製全文</button></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============ 資料 ============ */
+var STAGES = [
+ {age:"七歲",name:"悼",quote:"七年曰悼。……悼與耄，雖有罪，不加刑焉。",
+  ming:"「悼」者，哀憐也。知識未開、判斷未成，故可哀可矜。禮家以「悼」名此齡，重在標記其「未具責任能力」。",
+  duty:["就小學，習灑掃、應對、進退之節","受教而不任事，不與成人之交接","「童子不衣裘、裳，立必正方，不傾聽」──由衣冠、站姿、聽姿涵養專注","「童子委摯而退」──未冠者不執成人相見之贄"],
+  role:["禮制上之「未成人」，與「耄」同享刑責豁免","家庭中之被教養者，不列於公共事務","其名分特徵是「受保護」而非「無價值」"],
+  modern:["兒童及少年保護法制：以保護優先於處罰","學齡前與低年級之生活常規教育（專注、站姿、傾聽）","少年司法之「責任能力」概念，與「不加刑」同構"],
+  think:["為何「七年曰悼」被置於整段年齡序列之末，而非依序置於開頭？此為「悼↔耄」的對稱包裹結構。","豁免刑責是否等於否定其人格？〈曲禮〉以教育性義務（立必正方、不傾聽）補之，使豁免不成為放任。"],
+  care:95,resp:5},
+ {age:"十歲",name:"幼・學",quote:"人生十年曰幼，學。",
+  ming:"「幼」標其年齒，「學」標其任務。鄭注引《內則》：「十年出就外傅，居宿於外，學書計。」可知「學」有具體課程與離家就學之制度。",
+  duty:["出就外傅，學書（六書）計（九數）","習六藝之基，養德行與儀節","對師長：「從於先生，不越路而與人言」"],
+  role:["身分為「學者」，尚未任事","《曲禮下》以能力答問：「問士之子，長曰能典謁矣」──社會以「能為某事」定位，而非僅以年歲","學習是此階段唯一的公共意義"],
+  modern:["義務教育階段：學習既是權利亦是義務","課程與離校住宿之制度設計，可見古代對「學習環境」的重視","「能典謁／能負薪」的答問方式，近似今日以能力本位描述成長"],
+  think:["「學」在此是義務抑或權利？經文以「曰幼，學」的句式將學習寫入名分，實為「義務化的權利」。","若學習是此階段唯一的社會定位，則未入學者是否被排除於社會之外？此為古代教育的階級限制。"],
+  care:80,resp:20},
+ {age:"二十歲",name:"弱・冠",quote:"二十曰弱，冠。……男子二十，冠而字。",
+  ming:"「弱」謂氣力未充；「冠」謂加冠取字，正式成為成人。「父前子名，君前臣名」，冠後於尊前仍稱名，示不敢自尊。",
+  duty:["行冠禮，受成人之名與責","「冠而字」──取得社會交際之名號，開始執摯相見","婚娶、服役、繼續進學（「宦學事師，非禮不親」）"],
+  role:["成人之始，具完全之社會人格，然能力猶「弱」","由「童子委摯而退」轉為正式執摯之交接主體","於家為子，於國為士；兩重身分同時生效"],
+  modern:["民法成年與公民權之取得","成年禮（畢業、授證、公民宣誓）的儀式功能：以公開儀式確認名分","「名分先立、能力續養」的過渡期設計，近於實習、試署制度"],
+  think:["既稱「弱」，何以即予「冠」？──禮制以「先立其名、後成其能」為原則，權利與義務先於完全能力而至。","冠禮的公開性有何邏輯功能？答：使名分變更為「可被他人驗證」的公共事實。"],
+  care:45,resp:50},
+ {age:"三十歲",name:"壯・有室",quote:"三十曰壯，有室。",
+  ming:"「壯」謂氣力與識慮俱盛；「有室」，鄭注：「有妻也。」引申為成家立室，成為一家之主。",
+  duty:["成家、奉養父母、教養子女","立業以支家；「所習必有業」之完成階段","對外代表家族，承擔宗族與鄉黨之責"],
+  role:["家族之樞紐：上承父母，下啟子嗣","由「受教者」完全轉為「任事者」","《曲禮》「支子不祭，祭必告於宗子」──宗法中的位置於此定形"],
+  modern:["婚育與家庭經濟責任","職涯確立期：由學習者轉為產出者","對上一代照護與對下一代教養的「三明治」定位"],
+  think:["「三十曰壯，有室」是描述句（實然）抑或規範句（應然）？經文以「曰」字命名，實兼二者：既是常態描述，亦構成社會期待。","若三十未能「有室」，禮如何處置？〈曲禮〉設「貧者不以貨財為禮」，可知條件不足時以誠意代形式。"],
+  care:30,resp:70},
+ {age:"四十歲",name:"強・仕",quote:"四十曰強，而仕。",
+  ming:"「強」非僅體力之強，乃識慮堅定、能任繁劇。「而仕」謂出而任事，承擔公共職務。",
+  duty:["出仕任事，盡公私之責","「班朝治軍，涖官行法」──參與制度運作","以身教子弟，傳承家學"],
+  role:["士大夫階層之主體","公共事務之執行者；「四郊多壘，此卿大夫之辱也；地廣大，荒而不治，此亦士之辱也」──職分與榮辱相繫","由家族責任擴及國家責任"],
+  modern:["職涯中堅：承擔管理、執行與帶人責任","「職分之辱」的觀念，即現代之職務問責（accountability）","專業成熟期，可獨立決策"],
+  think:["四十方「仕」，與二十已「冠」相隔二十年，此設計之意為何？答：冠禮立名，仕則任實；名與實之間須以二十年養德積學。","「強」與後文「五十曰艾」相較，可知「強」重執行力，「艾」重決策與治理。"],
+  care:20,resp:88},
+ {age:"五十歲",name:"艾・服官政",quote:"五十曰艾，服官政。",
+  ming:"「艾」，老成之稱（一說蒼白如艾，一說治也）。「服官政」謂任官而主政，由執行層升至治理層。",
+  duty:["主政、決策、立法度","任師保之責，教养後進","「謀於長者，必操几杖以從之」──受諮詢而給方向"],
+  role:["卿大夫之任，國政之幹","由「任事」進為「任人」：分職授政","其言行影響及於風俗（「教訓正俗，非禮不備」）"],
+  modern:["高階治理與政策制定","由做事轉為選人、分權、定制度","對組織文化的塑造責任"],
+  think:["「仕」與「服官政」之別何在？答：仕為任職，服官政為主政；前者在体系之内執行，後者對体系負責。","五十方主政，是否過於遲緩？此為古代對「經驗－決策」關係的判斷，現代可對照專業晋升年限之爭。"],
+  care:15,resp:95},
+ {age:"六十歲",name:"耆・指使",quote:"六十曰耆，指使。",
+  ming:"「耆」，至也、長也。「指使」謂不親任劳力，但可指示而使人；即由執行者轉為指導者。",
+  duty:["傳授經驗、指點後進","「老者不以筋力為禮」──禮制主動減輕其體勞之負擔","持家之重務漸交於壯者"],
+  role:["資深顧問與尊長","組織中之「知識節點」：不居其位而存其識","受敬而不受役，是名分的柔性遞移"],
+  modern:["資深顧問、導師（mentor）制度","由一線轉為教練與諮詢","組織知識管理：經驗的制度化傳承"],
+  think:["「指使」是否隱含權力滯留之弊？經文以「七十曰老，而傳」緊接其後，形成<b>限期</b>：指使十年，必須交棒。","「不以筋力為禮」是一項體貼的制度設計：不使長者因體力衰退而失禮，實為維護其尊嚴。"],
+  care:40,resp:70},
+ {age:"七十歲",name:"老・傳",quote:"七十曰老，而傳。……大夫七十而致事。若不得謝，則必賜之几杖。",
+  ming:"「傳」謂傳家事於子孫，即交棒；於國則「致事」（退休）。「几杖」之賜，是尊養而非任用之禮。",
+  duty:["移交家業、宗子之位與祭祀之責","教導繼任者，完成責任之轉移","自處於「受養、受敬」之位，不再干預細務"],
+  role:["由主政者退為尊者","「國君不名卿老」「君子式黃髮」──其名分轉為「不受直呼」的尊崇對象","「越國而問焉，必告之以其制」──為國家保存制度記憶"],
+  modern:["退休與接班交接","經驗口述、制度記憶之保存","財產、權責與照護安排的提前規劃"],
+  think:["禮以「七十而傳」為常制，等於對權力設下<b>落日條款</b>。其邏輯前提是：責任能力與年齡相關，故須有制度化的退場機制。","若長者不願傳，禮如何強制？經文以「若不得謝，則必賜之几杖」處理──以尊養換實權，是柔性但明確的解方。"],
+  care:70,resp:40},
+ {age:"八九十歲",name:"耄",quote:"八十、九十曰耄。悼與耄，雖有罪，不加刑焉。",
+  ming:"「耄」，昏忘也。識慮已衰，與「悼」同列於刑責豁免，是禮對生命兩端的對稱照護。",
+  duty:["受養、受敬，不復任事","以其一生之經歷為家國之鑑","「負、劍，辟咡詔之，則掩口而對」──受少者俯耳而語之禮"],
+  role:["「雖有罪不加刑」之受保護者","家國之尊，非因其能力，而因其<b>存在</b>本身","祭祀與記憶之象徵性中心"],
+  modern:["高齡照護與長照體系","失智、認知障礙者之法律監護與責任能力認定","對長者溝通方式的調整（俯耳、掩口、緩語）"],
+  think:["以「識慮衰」為豁免之理由，是否仍以「能力」衡量人之價值？禮家的補充是「君子式黃髮」──尊其存在，非僅憐其衰弱。","「悼與耄」並列，顯示禮制以<b>對稱結構</b>表達：生命的起點與終點，同受制度性保護。"],
+  care:95,resp:8},
+ {age:"百歲",name:"期・頤",quote:"百年曰期、頤。",
+  ming:"「期」，要也，百年為人生之期；「頤」，養也，凡事須人供養。此為年齡序列之終點，亦為循環之完成。",
+  duty:["無事可任，唯受天下之養","以其壽為家國之祥，為後世之證"],
+  role:["純受供養之位，名分高於一切職事","「頤」字將人生之終結定義為<b>被養</b>而非<b>無用</b>"],
+  modern:["生命末期之尊嚴照護與善終","以「受養」而非「產值」衡量高齡者之社會定位","長壽社會之資源與倫理規劃"],
+  think:["序列以「頤」作結，形成「受養（悼）→任事（強、艾）→受養（期頤）」的閉合循環。此種時間觀對「生產力定義人的價值」之現代預設，構成何種挑戰？","「期」含<b>可預期</b>之意：禮為人生提供了一個完整的時間框架，使個人得以規劃，家族得以交接。"],
+  care:100,resp:0}
+];
+
+var RANKS = [
+ {t:"容貌・辭氣",lead:"身分差異首先顯現在<b>儀度與視域</b>之上：禮以身體語言編碼秩序。",
+  rows:[["天子穆穆，諸侯皇皇，大夫濟濟，士蹌蹌，庶人僬僬。","穆穆深遠、皇皇莊盛、濟濟齊一、蹌蹌舒節、僬僬急促。五者非分貴賤之價值，而是分<b>職事之容度</b>：位愈高，所繫愈重，故容愈緩而愈深。"],
+        ["天子，視不上於袷，不下於帶；國君，綏視；大夫，衡視；士，視五步。","視線高度亦被規範。視人之上（面）則敖，視人之下（帶）則憂，傾則姦──目光即心術之外顯，故禮以「視域」控管「心态」。"],
+        ["凡視，上於面則敖，下於帶則憂，傾則姦。","這是一組<b>診斷式推論</b>：由外在可觀察項（視）推內在狀態（敖、憂、姦），為「儼若思」提供檢核標準。"],
+        ["臨喪則必有哀色，介冑則有不可犯之色。","容色須與<b>場合</b>相符，是「情境一致性」的要求：哀、肅、敬各有其形。"]]},
+ {t:"生死・名分",lead:"同一事實，因名分不同而異其辭──此為「正名」的語用層級。",
+  rows:[["天子死曰崩，諸侯曰薨，大夫曰卒，士曰不祿，庶人曰死。","五級異辭。「不祿」謂不終其祿，是士之死的婉辭。名辭的差異，標示政治共同體中<b>責任範圍</b>之大小。"],
+        ["在床曰屍，在棺曰柩。","以<b>狀態</b>而非身分命名，顯示禮亦有純描述性的技術語彙，用於喪儀程序之精確化。"],
+        ["生曰父，曰母，曰妻；死曰考，曰妣，曰嬪。","同一人於生死前後異名，祭祀祝辭據此而作。名變則禮變，是「名以定事」的典型。"],
+        ["壽考曰卒，短折曰不祿。","同為大夫之喪，壽夭異辭。禮於辭句中保存了<b>對生命長度的評價</b>。"],
+        ["天子不言出，諸侯不生名，君子不親惡。諸侯失地，名；滅同姓，名。","名分亦決定<b>書法</b>：失地、滅同姓則「名」之，即以稱名作為譴責。此為《春秋》筆法之源。"]]},
+ {t:"祭祀・權限",lead:"祭祀權是身分最硬的界線：能祭什麼，即是什麼。",
+  rows:[["天子祭天地，祭四方，祭山川，祭五祀，歲遍。諸侯方祀，祭山川，祭五祀，歲遍。大夫祭五祀，歲遍。士祭其先。","四級遞減之祭祀權。祭天地唯天子；諸侯止於方祀；士唯祭其先。<b>祭祀範圍＝政治權限</b>。"],
+        ["非其所祭而祭之，名曰淫祀。淫祀無福。","越分而祭，不惟無效，且為「淫」。此是一條<b>禁止性規則</b>，用以防止僭越與權力混淆。"],
+        ["支子不祭，祭必告於宗子。","宗法內部之權限：庶子不得自主祭祀，必告宗子。家族亦有「權限管理」。"],
+        ["君子雖貧，不粥祭器；雖寒，不衣祭服；為宮室，不斬於丘木。","祭器、祭服、墓地之木，皆不可挪用。禮設<b>不可交易之領域</b>，以保障神聖性不受貧富變動影響。"],
+        ["無田祿者不設祭器，有田祿者先為祭服。","祭祀之規格與經濟條件掛鉤，是「貧者不以貨財為禮」的制度化：不強人以不能。"]]},
+ {t:"職分・答問",lead:"身分決定了「可被問什麼」與「該如何回答」──一套資訊倫理。",
+  rows:[["問天子之年，對曰：聞之，始服衣若干尺矣。問國君之年，長，曰：能從宗廟、社稷之事矣；幼，曰：未能從宗廟、社稷之事也。","不直言歲數，而以<b>能任之事</b>答之。年齡被轉譯為能力與職分，避免以數字輕慢尊者。"],
+        ["問大夫之子，長，曰能御矣；幼，曰未能御也。問士之子，長，曰能典謁矣。問庶人之子，長，曰能負薪矣。","四級子弟各以本階層之核心能力為答：御（駕車）、典謁（主賓客傳告）、負薪（勞作）。身分定義了「成熟」的標準。"],
+        ["問國君之富，數地以對，山澤之所出。問大夫之富，曰：有宰食力，祭器衣服不假。問士之富，以車數對。問庶人之富，數畜以對。","「富」的計算單位亦隨身分而異：地、宰與祭器、車、畜。可見禮對<b>財富的界定是功能性的</b>，非僅數量的。"],
+        ["在官言官，在府言府，在庫言庫，在朝言朝。朝言不及犬馬。","場合決定言域。此為最明確的<b>資訊分際</b>規則，現代組織之保密與議事紀律即其遺意。"],
+        ["公事不私議。","公域與私域之界。私議公事，既失程序正義，亦生流言。"]]}
+];
+
+var RELATIONS = [
+ {n:"父子",de:"親",ang:-90,
+  both:"父慈 ←→ 子孝",
+  yuan:["凡為人子之禮，冬溫而夏凊，昏定而晨省，在醜夷不爭。","夫為人子者，出必告，反必面，所遊必有常，所習必有業，恆言不稱老。","為人子者，居不主奧，坐不中席，行不中道，立不中門。","父母存，不許友以死，不有私財。","子之事親也，三諫而不聽，則號泣而隨之。","親有疾飲藥，子先嘗之。","聽於無聲，視於無形，不登高，不臨深，不苟訾，不苟笑。孝子不服闇，不登危，懼辱親也。"],
+  norm:["空間之節：不居室之西南隅（奧，尊位）、不坐席之中、不行道之中、不立門之中──皆以「不踰分」為原則。","時間之節：冬溫夏凊（調節寒暖）、昏定晨省（早晚問安）──孝落實為<b>定時動作</b>。","資訊之節：出必告、反必面、遊有常、習有業──使父母可掌握行蹤，實為<b>風險管理</b>。","言語之節：恆言不稱老、在醜夷不爭──不自居年高，不於同輩中爭勝。","身體之節：不登高、不臨深、不服闇、不登危──以身體安全為孝，因「懼辱親」。"],
+  now:["每日定時向家人報平安、說明行程（出必告，反必面）","照護父母之寒暖與作息（冬溫夏凊，昏定晨省）","重大風險活動前之告知與評估；不使家人因己而蒙羞受憂","父母有過，婉諫三次；不可則以情感相隨，而非決裂","父母用藥、就醫前先為查證（「醫不三世，不服其藥」）"],
+  think:"父子為「天合」，關係不可解除，故諫而不聽仍「號泣而隨之」。此設計的代價是：子女的判斷可能被無限期擱置。現代轉譯：情感不離，但<b>責任邊界</b>可議──如財務、醫療決策之代理與自主如何劃分？"},
+ {n:"君臣",de:"義",ang:-30,
+  both:"君仁 ←→ 臣忠",
+  yuan:["為人臣之禮，不顯諫，三諫而不聽，則逃之。","君有疾飲藥，臣先嘗之。","公事不私議。在朝言禮，問禮對以禮。朝言不及犬馬。","侍於君子，不顧望而對，非禮也。","君使士射，不能則辭以疾，言曰：某有負薪之憂。","大夫私行出疆，必請；反，必有獻。","國君死社稷，大夫死眾，士死制。"],
+  norm:["進言之節：不顯諫（不於眾中直斥其非），三諫為限，不聽則去。","任事之節：出疆必請、反必有獻──請示與回報的完整闭环。","應對之節：不顧望而對（不左顧右盼揣測他人顏色而後言），須直言而恭。","辭讓之節：不能則辭以疾，不冒任所不能──誠實申報能力。","守分節：公事不私議、朝言不及犬馬──場合與議題的嚴格對應。"],
+  now:["職場異議：先私下、有理據、有次數；三次未果則調整角色或去職","請示與回報制度（出疆必請，反必有獻）","不揣測上意而附和，亦不於私下議論公事（不顧望而對／公事不私議）","不承接超出能力之任務，並明確說明原因（辭以負薪之憂）","職務倫理與責任歸屬清楚：各死其職（死社稷／死眾／死制）"],
+  think:"君臣為「義合」，可斷，故設「逃之」之出口。邏輯上，<b>可退出性</b>是關係健康的前提：無退出機制的忠，實為脅迫。此條對現代勞雇關係仍有規範力。"},
+ {n:"夫婦",de:"別",ang:30,
+  both:"夫義 ←→ 婦聽（互敬）",
+  yuan:["男女不雜坐，不同椸枷，不同巾櫛，不親授。","男女非有行媒，不相知名；非受幣，不交不親。","取妻不取同姓，故買妾不知其姓則卜之。","男女異長。男子二十，冠而字；女子許嫁，笄而字。","外言不入於梱，內言不出於梱。","姑、姊、妹、女子子，已嫁而反，兄弟弗與同席而坐，弗與同器而食。"],
+  norm:["界線之節：不雜坐、不共用衣物巾梳、不親手授受──以物理界線維繫分際。","程序之節：必有行媒、必受幣、必告君與鬼神、必召鄉黨僚友──婚約的<b>公開化與程序化</b>。","名分之節：女子許嫁而笄字，取得社會名號；男女各異其長。","內外之節：外言不入，內言不出──私域與公域之訊息分際。"],
+  now:["人際界線與身體自主：不強加親密，尊重彼此空間","重要關係之公開與承諾程序（登記、儀式、家人知情）","公私訊息之分際：家事不外洩，外界紛擾不入侵家庭","以「別」為<b>相互尊重之界線</b>，而非隔離與支配"],
+  think:"此倫條文最具時代局限：以隔離代替協商，客觀上限制女性之公共參與。批判性轉譯：保留其<b>「別＝界線與尊重」</b>之原則，廢棄其<b>「別＝隔離與從屬」</b>之形式。判準仍是「自卑而尊人」。"},
+ {n:"兄弟・長幼",de:"序",ang:90,
+  both:"兄友 ←→ 弟恭",
+  yuan:["年長以倍，則父事之；十年以長，則兄事之；五年以長，則肩隨之。","群居五人，則長者必異席。","從長者而上丘陵，則必鄉長者所視。","長者與之提攜，則兩手奉長者之手。","長者舉未釂，少者不敢飲。長者賜，少者賤者不敢辭。","侍坐於長者，屨不上於堂，解屨不敢當階。"],
+  norm:["以年齡差決定禮數等級：倍齡以父事、十齡以兄事、五齡則肩隨──<b>可量化之規則</b>。","人數達五，長者異席──以門檻值保障尊長之位。","隨行則視長者所視；受提攜則兩手奉其手──身體的協調。","飲宴之序：長者未盡爵，少者不敢先飲。","進退之節：屨不上堂、解屨不當階──器物與方位皆有定位。"],
+  now:["對前輩、資深同事之禮：讓位、讓行、先聽後言","團隊中的次序與發言權（長者不及，毋儳言）","受長輩扶助時之回應方式：鄭重而非随意","聚餐時不搶先、不獨享，等主人與長者先動"],
+  think:"數值化規則的優點是<b>可操作、免爭議</b>；缺點是忽略德行與實情。〈曲禮〉以「愛而知其惡，憎而知其善」為補：敬意可普遍，但「事之」之強度可依德調整。"},
+ {n:"朋友",de:"信",ang:150,
+  both:"朋友有信（互責善）",
+  yuan:["執友稱其仁也，交遊稱其信也。","博聞強識而讓，敦善行而不怠，謂之君子。","禮聞取於人，不聞取人。禮聞來學，不聞往教。","寡婦之子，非有見焉，弗與為友。","交遊之讎，不同國。","很毋求勝，分毋求多。疑事毋質，直而勿有。"],
+  norm:["交友以「信」為核心評價指標：他人稱譽朋友，只稱其信。","求學之節：主動來學，不強往教──尊重對方之學習意願。","爭辯之節：很（爭）毋求勝，分（分財）毋求多──不以勝敗與多得為目的。","言語之節：疑事毋質（不強斷所疑），直而勿有（雖直言之而不據為己有）。","擇友之節：非有見焉弗與為友──須有實際相見與了解。"],
+  now:["人際信用的累積：守時、守約、守密","不強加觀點於人（不聞往教），尊重他人自主學習","討論時求理不求勝；分利時不多取","對未證實之事不下斷語，發表意見時註明來源與不確定性","擇友以實際相處為據，不以傳聞定人"],
+  think:"「禮聞來學，不聞往教」是一條<b>說服的倫理</b>：教化須以對方主動為前提。此與現代「同意」概念相通，亦可作為對強推式宣導的批判依據。"},
+ {n:"賓主・師生",de:"敬",ang:210,
+  both:"主敬客 ←→ 客尊主；師嚴 ←→ 弟子恭",
+  yuan:["將上堂，聲必揚。戶外有二屨，言聞則入，言不聞則不入。","將入戶，視必下。入戶奉扃，視瞻毋回。戶開亦開，戶闔亦闔。有後入者，闔而勿遂。","凡與客入者，每門讓於客。主人入門而右，客入門而左；主人就東階，客就西階。","主人與客讓登，主人先登，客從之，拾級聚足，連步以上。","從於先生，不越路而與人言。遭先生於道，趨而進，正立拱手。","請業則起，請益則起。父召無諾，先生召無諾，唯而起。","尊客之前不叱狗。讓食不唾。主人不問，客不先舉。"],
+  norm:["入门之節：先揚聲告知，聽得言談則不入──<b>隱私的判斷程序</b>。","戶門之節：開亦開、闔亦闔，有後入者闔而勿遂──不使門態影響他人。","方位之節：主右客左、主東階客西階，讓而後定──以空間確立賓主。","登階之節：拾級聚足，連步以上──不越級、不併足，步履有數。","事師之節：不越路與人言、趨而進、正立拱手、請業請益皆起──注意力完全給予。","待客之節：不叱狗、讓食不唾、主人不問客不先舉──以主人之意為進止。"],
+  now:["敲門、先告知再進入他人空間；聽見私人談話即退開","進出門時留意後方之人，不任門自動彈回","電梯、門口、通道之禮讓，並明確「讓而後定」","上課、開會、面談時，起立請教、專注應對，不中途與旁人交談","宴客時不喧鬧斥人、不唾棄食物、不搶先動筷"],
+  think:"「戶外有二屨，言聞則入，言不聞則不入」是一條罕見的<b>條件句規則</b>：以可觀察證據（聞言與否）決定行為，避免了主觀揣測。現代「敲門後等回應」即其同構。"}
+];
+
+var ROLES = [
+ {n:"為人子",items:[
+  {y:"出必告，反必面；所遊必有常，所習必有業。",b:"出門告知去向，返家面見稟報；遊歷有一定去處，學習有一定課業。",m:"每日向家人報平安，行程有常規，讓父母可掌握而不焦慮。"},
+  {y:"冬溫而夏凊，昏定而晨省。",b:"冬日使父母溫暖，夏日使父母涼爽；晚上為其安頓寢處，清晨前往問安。",m:"照護父母之寒暖與作息；早晚一通電話或一句問候。"},
+  {y:"居不主奧，坐不中席，行不中道，立不中門。",b:"不居室內尊位、不坐席之中央、不行道之正中、不立於門之當中有礙通行之處。",m:"在家不占最好的位置；在公共場所不擋路、不占道。"},
+  {y:"在醜夷不爭。",b:"於同輩之中不爭勝。",m:"與兄弟姊妹、同儕相處，不計較輸贏高下。"},
+  {y:"父母存，不許友以死，不有私財。",b:"父母在，不為朋友輕許性命；不私藏財物。",m:"不為意氣而冒生命之險；家庭財務透明，不隱匿私積。"},
+  {y:"三諫而不聽，則號泣而隨之。",b:"父母有過，婉諫三次；不聽則哭而相隨，不捨不忤。",m:"對父母之錯誤決定，理性勸說有度，情感不離，但不盲從違法之事。"},
+  {y:"不登高，不臨深；不苟訾，不苟笑。孝子不服闇，不登危，懼辱親也。",b:"不攀高、不臨深淵；不隨便毀議他人、不隨便嬉笑；不行暗昧之事，不涉危險，恐辱及其親。",m:"重視自身安全與名聲，因己身即父母之所繫。"}]},
+ {n:"為少者・童子",items:[
+  {y:"童子不衣裘、裳，立必正方，不傾聽。",b:"童子不穿裘與裳（不便勞作之服）；站立必面向端正，不歪頭斜聽。",m:"衣著合宜於身分與場合；站有站相，聽人說話時正視對方。"},
+  {y:"長者與之提攜，則兩手奉長者之手。",b:"長者牽攜自己時，以兩手捧承長者之手。",m:"受長輩攙扶、引領時，鄭重回應而非隨意甩手。"},
+  {y:"負、劍，辟咡詔之，則掩口而對。",b:"長者俯身於耳側教誨時，掩口而對（以免口氣直衝長者）。",m:"與長者近身說話時注意口氣、距離與音量。"},
+  {y:"長者舉未釂，少者不敢飲。長者賜，少者賤者不敢辭。",b:"長者未飲盡杯中之酒，少者不敢先飲；長者所賜，少者不敢推辭。",m:"宴席中待主人與長者先動；受贈時鄭重道謝而不故作推讓。"},
+  {y:"父召無諾，先生召無諾，唯而起。",b:"父或師召喚，不以怠慢之「諾」應，而以疾速之「唯」應並即起身。",m:"被父母、師長召喚時立刻回應並起身，不拖延、不敷衍。"}]},
+ {n:"為長者・兄",items:[
+  {y:"群居五人，則長者必異席。",b:"群聚至五人，長者應另設一席。",m:"身為長者，不強占尊位，亦主動安排座位使眾得安。"},
+  {y:"老者不以筋力為禮。",b:"對老者不以其體力所不能者責之為禮。",m:"對晚輩、下屬所要求者，須考量其條件，不強人所難。"},
+  {y:"長者不及，毋儳言。",b:"長者尚未言及之事，少者不得搶先插話。",m:"身為長者，亦須留白讓晚輩發言，不壟斷話題。"},
+  {y:"從長者而上丘陵，則必鄉長者所視。",b:"隨長者登高，必面向長者所注視之處。",m:"帶人同行時，留意同行者的視線與需求，主動說明與照應。"},
+  {y:"年長以倍，則父事之；十年以長，則兄事之。",b:"以年齡差決定所當行之禮。",m:"不以年長而驕，反以年長而多任其責、多予包容。"}]},
+ {n:"為人臣・下屬",items:[
+  {y:"為人臣之禮，不顯諫，三諫而不聽，則逃之。",b:"不於公眾場合直斥其非；進諫以三次為限，不聽則去。",m:"對上司之異議，先私下、有理據、有次數；三次未果則調整角色或離職。"},
+  {y:"公事不私議。在官言官，在府言府，在庫言庫，在朝言朝。",b:"公事不得於私下議論；在何場合即言何事。",m:"不在私下群組議論公務；場合與議題相符，不離題、不洩密。"},
+  {y:"朝言不及犬馬。",b:"朝廷議事不及於犬馬等瑣事。",m:"會議中不談無關之私事與閒話。"},
+  {y:"侍於君子，不顧望而對，非禮也。",b:"在尊長之前，不左右觀望揣測顏色然後回答。",m:"發言依事實與判斷，不揣摩上意而附和。"},
+  {y:"君使士射，不能則辭以疾，言曰：某有負薪之憂。",b:"受命而不能勝任，則委婉辭以疾，不冒然承擔。",m:"不承接超出能力之任務，並誠實說明原因與替代方案。"},
+  {y:"大夫私行出疆，必請；反，必有獻。",b:"私人出境必先行請示，返回必有回報。",m:"外出、出差、遠行前報備，返回後回報結果。"},
+  {y:"君有疾飲藥，臣先嘗之。",b:"君主服藥，臣先嘗之以驗其安。",m:"對所交付之事先自檢核，承擔第一線風險，不使上級或同事受損。"}]},
+ {n:"為主人・賓客",items:[
+  {y:"將上堂，聲必揚。戶外有二屨，言聞則入，言不聞則不入。",b:"將升堂必先揚聲；門外見兩雙鞋，聽得談話則不入，聽不到亦不貿然入。",m:"進入他人空間前先敲門出聲；察覺他人正在私談，即退開稍候。"},
+  {y:"戶開亦開，戶闔亦闔。有後入者，闔而勿遂。",b:"門原開則仍開，原閉則仍閉；後面還有人來，就不要把門完全關死。",m:"進出門維持原有狀態，並為後到者留門。"},
+  {y:"凡與客入者，每門讓於客。",b:"與客同行，每至一門皆讓客先行。",m:"門口、電梯、通道主動禮讓來客與長者。"},
+  {y:"主人就東階，客就西階；主人與客讓登。",b:"主客各有其階，相互謙讓而後定。",m:"引導客人時明確動線與座位，讓而後定，不含混。"},
+  {y:"尊客之前不叱狗。讓食不唾。",b:"在尊貴客人面前不呵斥狗；謙讓食物時不唾棄。",m:"待客時不發脾氣、不斥責家人；對所享食物不出輕慢之言。"},
+  {y:"主人不問，客不先舉。",b:"主人未發問，客人不先有所舉措。",m:"作客時隨主人之意，不擅自主導、不越分發言。"}]},
+ {n:"為師・為弟子",items:[
+  {y:"從於先生，不越路而與人言。",b:"隨先生行走，不越到路旁與他人閒談。",m:"與師長同行時專心陪伴，不停下與旁人聊天。"},
+  {y:"遭先生於道，趨而進，正立拱手。先生與之言則對，不與之言則趨而退。",b:"路上遇先生，快步上前，端正站立拱手；先生說話則答，不說則退下。",m:"途中遇見師長，主動上前致意，進退有節。"},
+  {y:"請業則起，請益則起。",b:"請教課業或再問，皆起身。",m:"發問時起身或正身，以示鄭重。"},
+  {y:"侍坐於先生，先生問焉，終則對。",b:"侍坐時先生發問，待其問畢然後回答。",m:"不搶話，聽完問題再答。"},
+  {y:"禮聞來學，不聞往教。",b:"禮是聞人來學，不聞強往教人。",m:"教學與勸說以對方主動為前提；不強加觀點於人。"},
+  {y:"先生書策、琴瑟在前，坐而遷之，戒勿越。",b:"先生的書冊琴瑟在前，應跪坐移開，切勿跨越。",m:"不跨越他人之物、文件與器材，尊重他人所有。"}]},
+ {n:"處眾・群居",items:[
+  {y:"毋側聽，毋噭應，毋淫視，毋怠荒。",b:"不側耳偷聽，不高聲呼應，不流盼斜視，不放縱懈怠。",m:"不窺探他人隱私、不大聲喧嘩、不四處張望、不懈怠失神。"},
+  {y:"遊毋倨，立毋跛，坐毋箕，寢毋伏。",b:"行走不傲慢，站立不歪斜，坐不張腿如箕，寢不俯趴。",m:"行住坐臥皆有姿態；公共場合不占位、不歪躺。"},
+  {y:"毋勦說，毋雷同。必則古昔，稱先王。",b:"不搶奪他人之言以為己說，不隨聲附和；立論必有所本。",m:"發言不抄襲、不盲從，引用須有依據。"},
+  {y:"虛坐盡後，食坐盡前。坐必安，執爾顏。",b:"非飲食之坐宜靠後（示謙），飲食之坐宜近前（防污）；坐要安穩，端持容色。",m:"坐姿依場合調整；不搖晃、不癱坐，神情端莊。"},
+  {y:"並坐不橫肱。離坐離立，毋往參焉。離立者，不出中間。",b:"並坐時不橫展手臂；見他人對坐對立，不強行插入其中。",m:"不占鄰座空間；見人私談不貿然加入。"},
+  {y:"共食不飽，共飯不澤手。毋摶飯，毋放飯，毋流歠，毋咤食，毋齧骨，毋反魚肉，毋固獲。",b:"同食不求飽，同飯不搓手；不把飯捏成團、不把手中餘飯放回、不喝出聲、不出聲咀嚼、不啃骨、不把已夾之鱼肉放回、不專取所好。",m:"共餐時顧及他人：不獨享、不出聲、不回菜、不挑揀。"},
+  {y:"群居五人，則長者必異席。",b:"五人群聚，必為長者另設席位。",m:"聚會時主動安排長者、來客之座次。"}]},
+ {n:"臨喪・弔祭",items:[
+  {y:"臨喪不笑。望柩不歌，入臨不翔。當食不歎。",b:"臨喪事不嬉笑；見靈柩不歌唱，入臨不疾行張臂；食時不歎息。",m:"在哀傷場合收斂神色；不在他人悲戚時表現歡愉。"},
+  {y:"鄰有喪，舂不相；里有殯，不巷歌。",b:"鄰里有喪，舂米時不呼號助興，里巷有殯，不在巷中歌唱。",m:"鄰居有喪事或病故，降低音量、暫停慶賀活動。"},
+  {y:"適墓不歌，哭日不歌。送喪不由徑，送葬不辟塗潦。",b:"往墓地不歌唱，哭泣之日不歌唱；送喪不抄小路，送葬不避泥水。",m:"弔祭之日保持莊重；為表達哀敬，不憚辛勞。"},
+  {y:"助葬必執紼。臨喪則必有哀色。",b:"助人葬事必親執引繩；臨喪必有哀戚之色。",m:"參與喪事時實際出力，不以旁觀者自居。"},
+  {y:"弔喪弗能賻，不問其所費；問疾弗能遺，不問其所欲。",b:"弔喪而無力贈助，便不問其花費；探病而無力饋贈，便不問其所需。",m:"無力實質幫助時，不追問細節而使對方為難。"}]},
+ {n:"處事・決疑",items:[
+  {y:"臨財毋苟得，臨難毋苟免。",b:"面臨財利不苟且貪取，面臨危難不苟且逃避。",m:"利益當前守分際；責任當前不推諉。"},
+  {y:"很毋求勝，分毋求多。疑事毋質，直而勿有。",b:"爭辯不求必勝，分取不求多得；可疑之事不強下斷語，雖直言而不據為己有。",m:"討論求理不求勝；分利不多取；對未經證實之事不下結論。"},
+  {y:"醫不三世，不服其藥。",b:"醫者非三代相傳（或其術不精熟）者，不服其藥。",m:"重要決策前查證專業資格與來源，不輕信來路不明之資訊。"},
+  {y:"卜筮不過三，卜筮不相襲。",b:"卜筮以三次為限，不反覆重占以求己欲之結果。",m:"不反覆尋求支持自己偏好的意見（確認偏誤之戒）。"},
+  {y:"入竟而問禁，入國而問俗，入門而問諱。",b:"入境先問禁令，入國先問風俗，入門先問忌諱。",m:"進入新環境先了解規則、文化與禁忌，再行動。"},
+  {y:"禮從宜，使從俗。君子行禮，不求變俗。",b:"行禮以合宜為準，出使以隨俗為準；君子行禮，不強求改變當地風俗。",m:"跨文化、跨組織情境中先適應，不以己之標準強加於人。"},
+  {y:"敖不可長，欲不可從，志不可滿，樂不可極。",b:"傲慢不可滋長，欲望不可放縱，心志不可自滿，歡樂不可至極。",m:"為四項自我監控指標，可日省一次。"}]}
+];
+
+var HOURS = [
+ {z:"子",t:"23–01",n:"夜半・戒慎",li:"「君子戒慎，不失色於人。」「敖不可長，欲不可從，志不可滿，樂不可極。」",now:"夜深獨處，正是「無人之境」的自我檢核：一日之過失、傲慢、縱欲、自滿、失樂，逐一回想。"},
+ {z:"丑",t:"01–03",n:"雞鳴・寢安",li:"「寢毋伏。」",now:"睡姿端正，作息有節；不熬夜透支，以身體之安為禮之基。"},
+ {z:"寅",t:"03–05",n:"平旦・將起",li:"「夙興夜寐，毋忝爾所生」（《詩》義與晨省相發）。",now:"起床前先定一日之要務三件，使行為有所主。"},
+ {z:"卯",t:"05–07",n:"日出・晨省",li:"「昏定而晨省。」「冠毋免，斂髮毋髢。」",now:"向父母、家人問安（一則訊息亦可）；整理儀容衣冠，端整而後出門。"},
+ {z:"辰",t:"07–09",n:"食時・進食之禮",li:"「凡進食之禮，左殽右胾，食居人之左，羹居人之右。」「共食不飽，共飯不澤手。」",now:"家人同桌共食：等長者先動筷，不獨享佳餚，不邊滑手機邊吃。"},
+ {z:"巳",t:"09–11",n:"隅中・將上堂",li:"「將上堂，聲必揚。」「在官言官，在府言府。」「公事不私議。」",now:"進入辦公室、教室、他人房間前先敲門出聲；工作場合只談工作，不私議、不閒聊。"},
+ {z:"午",t:"11–13",n:"日中・應對之節",li:"「毋側聽，毋噭應，毋淫視，毋怠荒。」「長者不及，毋儳言。」",now:"午間會議或交談：不偷聽、不高聲、不東張西望、不打斷他人；聽完問題再答。"},
+ {z:"未",t:"13–15",n:"日昳・決疑",li:"「疑事毋質，直而勿有。」「卜筮不過三，卜筮不相襲。」「醫不三世，不服其藥。」",now:"處理資訊與決策：未證實者不下斷語；不反覆求證以迎合己見；重要判斷先查專業來源。"},
+ {z:"申",t:"15–17",n:"晡時・入境問俗",li:"「入竟而問禁，入國而問俗，入門而問諱。」「君子行禮，不求變俗。」",now:"拜訪客戶、新單位、他鄉或異文化場域前，先查規則、習俗與禁忌，而後行動。"},
+ {z:"酉",t:"17–19",n:"日入・宴飲之節",li:"「侍飲於長者，酒進則起，拜受於尊所。」「長者舉未釂，少者不敢飲。」「樂不可極。」",now:"聚會飲宴：向主人與長者致意，不搶先、不勸酒、不過量；歡樂有上限。"},
+ {z:"戌",t:"19–21",n:"黃昏・昏定",li:"「昏定而晨省。」「侍坐於君子，君子欠伸，撰杖屨，視日蚤莫，侍坐者請出矣。」",now:"為父母、家人安頓夜間起居；作客時察覺主人倦意，主動告辭。"},
+ {z:"亥",t:"21–23",n:"人定・待客與自省",li:"「燭至起，食至起，上客起。燭不見跋。」「坐必安，執爾顏。」",now:"客人來訪起身相迎；不把燭（燈）燃盡才散，寓意留餘；就寢前自省「毋不敬」是否貫串全日。"}
+];
+
+var SCENES = [
+ {q:"週末與朋友相約至深夜，回家時父母已就寢。你認為自己已成年，行蹤不必報備。",
+  o:["已成年，個人行蹤屬於隱私，不必告知","出門前告知去處與預計返家時間，返家後仍讓父母知道已平安歸來","只在被詢問時才回答"],a:1,
+  y:"「夫為人子者，出必告，反必面，所遊必有常，所習必有業。」──《曲禮上》",
+  e:"「告」與「面」不是監控，而是<b>使關係可預期</b>：父母之憂來自資訊不足，而非對你的不信任。「所遊必有常」更進一步要求行程具備規律性，是可被驗證的承諾。現代轉譯：一則訊息即可完成「反必面」的功能，成本極低而效益極高。"},
+ {q:"部門會議中，主管提出的方案明顯有重大風險，會將眾人都在場。",
+  o:["當場直言指責其錯誤，以示負責","會後私下陳述風險與數據；若三次進言仍不採納，則調整立場或求去","保持沉默，事後再向他人抱怨"],a:1,
+  y:"「為人臣之禮，不顯諫，三諫而不聽，則逃之。」／「公事不私議。」──《曲禮上・下》",
+  e:"「不顯諫」是<b>說服策略</b>：公開指責使對方無退路，採納率反降。「三諫」是<b>次數上限</b>：既盡其責，亦不纏鬥。「逃之」是<b>退出機制</b>：關係可斷，故不必以違心服從為代價。至於選項三「私下抱怨」，正犯「公事不私議」之戒，是禮所明禁。"},
+ {q:"你到同事辦公室，門半掩，隱約聽到裡面正在談話。",
+  o:["直接推門進入並出聲招呼","先在門外出聲示意，聽見回應或談話可聞則入，否則稍候再敲門","站在門外側耳聽完再決定"],a:1,
+  y:"「將上堂，聲必揚。戶外有二屨，言聞則入，言不聞則不入。」「毋側聽。」──《曲禮上》",
+  e:"這是一條<b>以可觀察證據為條件</b>的規則：不憑揣測，而以「聲必揚」創造訊號、以「聞與不聞」作判斷。「毋側聽」則直接禁止偷聽。三者合起來構成完整的隱私保護程序：先給訊號，再取證據，後定行為。"},
+ {q:"與朋友聚餐，桌上有一道你最愛吃的菜，你連夾數次，幾乎獨享。",
+  o:["喜歡就多吃，付費平均分攤即公平","顧及同桌之人，不專取所好、不搶先、不獨享","先夾一大塊放入自己碗中慢慢吃"],a:1,
+  y:"「共食不飽，共飯不澤手。」「毋固獲。」「毋反魚肉。」「讓食不唾。」──《曲禮上》",
+  e:"「毋固獲」鄭注謂不專取所好而必得之，是<b>對偏好的自我節制</b>。「共食不飽」則設下量的上限：在共享場合，不以吃飽為目標。禮在此處理的是<b>資源分配的隱性倫理</b>：形式上均分，實質上仍需克制，否則强者恒強。"},
+ {q:"社群媒體上流傳一則未經證實的消息，與你的立場相符，你想立即轉發。",
+  o:["立場相符即轉發，真假交由他人判斷","先查證來源與專業依據；無法證實者不下斷語，轉發時明確標示不確定性","反覆詢問多位同溫層朋友，直到有人支持你的判斷為止"],a:1,
+  y:"「疑事毋質，直而勿有。」「醫不三世，不服其藥。」「卜筮不過三，卜筮不相襲。」──《曲禮上・下》",
+  e:"「疑事毋質」：對可疑之事不強下斷言。「醫不三世」：重視<b>專業資格與經驗累積</b>，即今日的來源查核。「卜筮不相襲」最為精妙──不反覆占問以求得己欲之答案，正是現代所說<b>確認偏誤</b>的古典戒條：不要一直問，直到得到你想聽的答案。"},
+ {q:"公司派你到海外分公司支援三個月，當地工作習慣與你慣常方式差異很大。",
+  o:["依自己慣常方式行事，並設法改變當地作法","入境前先查當地法令、習俗與忌諱；到任後隨俗而行，不強求改變對方","完全放棄自己原則，一切照當地方式辦理，包括不合專業標準者"],a:1,
+  y:"「入竟而問禁，入國而問俗，入門而問諱。」「禮從宜，使從俗。」「君子行禮，不求變俗。」──《曲禮上》",
+  e:"三「問」構成<b>進入新場域的資訊蒐集程序</b>：法禁（不可為）、風俗（宜如何）、忌諱（避免觸犯）。「使從俗」是外派者的行為準則，「不求變俗」更是對文化傲慢的警告。惟須注意：隨俗以「宜」為限，若當地作法違反專業或倫理底線，則當回到「臨財毋苟得，臨難毋苟免」的原則，此即選項三之誤。"},
+ {q:"與長輩通話時，你一邊低頭滑手機，一邊以「嗯、嗯」高聲隨意應對。",
+  o:["通話內容重要，其他行為不拘","正身專注，語氣安和；不側聽、不高聲呼應、不散漫","請對方改傳文字訊息，避免通話"],a:1,
+  y:"「毋側聽，毋噭應，毋淫視，毋怠荒。」「正爾容，聽必恭。」「安定辭。」──《曲禮上》",
+  e:"〈曲禮〉的「儼若思、安定辭」要求<b>容與辭相稱</b>。「噭應」即高聲急應，「淫視」即目光游移，「怠荒」即心不在焉──三者恰是現代人滑手機時的標準狀態。禮在此提供的不是規訓，而是一項溝通事實：注意力是可以被對方讀取的，而對方讀到什麼，決定了這段關係的品質。"}
+];
+
+var QUIZ = [
+ {q:"《曲禮上》「人生十年曰幼，學」，鄭玄注引《內則》以明「學」之內容，下列何者最符合？",
+  o:["學禮樂射御，以備出仕","十年出就外傅，居宿於外，學書計","學孝悌之道，事父母兄長","學卜筮祭祀，以事鬼神"],a:1,
+  e:"鄭注引《內則》：「十年出就外傅，居宿於外，學書計。」可知「學」有具體課程（六書、九數）與制度（離家就外傅），非泛言德性。"},
+ {q:"「二十曰弱，冠」中，「弱」與「冠」並稱，最合理的解釋是：",
+  o:["體弱多病者不必行冠禮","二十雖氣力未充，然名分已立，故行冠禮而取字","「弱」為謙辭，實已強壯","冠禮須待三十而行，二十僅預備"],a:1,
+  e:"「弱」是能力判斷（實然），「冠」是名分判斷（應然）。禮制採「名分先立、德行續養」之模型，故二十雖弱仍冠，至四十方曰強而仕。"},
+ {q:"「七十曰老，而傳」之「傳」，指：",
+  o:["傳授學問於弟子","傳位於賢者而非子","傳家事於子孫，即交棒；於國則致事退休","為己傳記以留後世"],a:2,
+  e:"「傳」謂傳家事於子孫。《曲禮下》：「大夫七十而致事。若不得謝，則必賜之几杖。」可知退休與交棒為禮之常制，等於對權力設下落日條款。"},
+ {q:"「悼與耄，雖有罪，不加刑焉」的論理依據，最接近下列何者？",
+  o:["因其身分尊貴，故不受刑","因其不具完全責任能力（識慮未開或已衰）","因其無力服刑","因刑罰無助於社會秩序"],a:1,
+  e:"七年曰悼（識慮未開）、八十九十曰耄（識慮已衰），皆不具完全責任能力，故雖有罪不加刑，而代之以教（童蒙）與養（耄老）。"},
+ {q:"「天子穆穆，諸侯皇皇，大夫濟濟，士蹌蹌，庶人僬僬」主要規範的是：",
+  o:["各階層之財富多寡","各階層之容貌儀度與節奏","各階層之刑罰輕重","各階層之祭祀對象"],a:1,
+  e:"五辭皆狀容止：穆穆深遠、皇皇莊盛、濟濟齊一、蹌蹌舒節、僬僬急促。禮以身體語言編碼秩序，位愈高所繫愈重，故容愈緩而深。"},
+ {q:"「非其所祭而祭之，名曰淫祀。淫祀無福。」此條反映的邏輯是：",
+  o:["祭祀愈多愈有福","祭祀權即身分界線，越分而祭無效且有咎","祭祀應以誠心為準，不問對象","只有天子可以祭祀"],a:1,
+  e:"「天子祭天地……士祭其先」四級遞減，祭祀範圍等於政治權限。越分而祭稱「淫」，是以禁止性規則防止僭越。"},
+ {q:"「為人臣之禮，不顯諫，三諫而不聽，則逃之」與「子之事親也，三諫而不聽，則號泣而隨之」之差異，最佳解釋是：",
+  o:["臣之地位低於子","君臣以義合，可去；父子以天合，不可絕","國君較父母易於勸說","此為經文自相矛盾之處"],a:1,
+  e:"兩條共用「三諫」之程序（次數限制＝尊重對方自主），卻導出「逃」與「隨」之相反結論，差別只在關係能否解除。可見〈曲禮〉之推論為「關係性質→行為上限」。"},
+ {q:"「夫禮者，自卑而尊人。雖負販者，必有尊也，而況富貴乎！」此句的論證方式是：",
+  o:["以權威之言立論","以社會最底層者作下限檢驗，再以「而況」推及富貴（a fortiori）","以歷史事例歸納","以定義推演"],a:1,
+  e:"「雖……必有尊也，而況……乎」是典型的<b>由下及上</b>的推論：若連負販者亦有尊，則尊嚴之普遍性得證。此為〈曲禮〉內部對等級制最有力的自我修正。"},
+ {q:"「入竟而問禁，入國而問俗，入門而問諱」最貼切的現代轉譯是：",
+  o:["入境須申請許可","進入新場域前先蒐集規則、文化與禁忌之資訊","應學習各國語言","到別人家中應先問姓氏"],a:1,
+  e:"三「問」是一套進入新情境的資訊蒐集程序：法禁（不可為）、風俗（宜如何）、忌諱（避免觸犯），與「禮從宜，使從俗」相配。"},
+ {q:"「毋不敬，儼若思，安定辭」三者的內在順序是：",
+  o:["言語→容貌→心態","容貌→言語→心態","心態→容貌→言語（由內而外）","三者無次第，可任意施行"],a:2,
+  e:"「敬」為內在總綱，「儼若思」為容貌之顯，「安定辭」為言語之定。既是修身的推展次第，亦可反向作為檢核：辭不定則知貌不儼，貌不儼則知心不敬。"},
+ {q:"關於「禮不下庶人，刑不上大夫」，下列敘述何者最符合經文內部的整體邏輯？",
+  o:["庶人不必守禮，大夫不受刑罰","禮不以貴者之禮苛責庶人，刑不陳具以辱士節；然二者皆不免除其應有之敬與應受之罪","此句證明儒家主張階級壓迫","此句與〈曲禮〉其他條文毫無關聯"],a:1,
+  e:"孔疏以「苛責」與「陳刑」解之，且〈曲禮上〉明言「雖負販者，必有尊也」，若解為庶人無禮、大夫免罪，即與經文自相矛盾。此句內部存在詮釋張力，須以「自卑而尊人」為優先原則。"},
+ {q:"「疑事毋質，直而勿有」與「卜筮不過三，卜筮不相襲」共同防範的現代認知偏誤是：",
+  o:["過度自信","確認偏誤：反覆求證直到得到自己想聽的答案","損失規避","錨定效應"],a:1,
+  e:"「卜筮不相襲」明禁重複占問以求吉兆；「疑事毋質」禁強下斷語；「直而勿有」則禁據為己有。三者合成一套古典的<b>認知自律</b>規則。"}
+];
+
+var GLOSS = [
+ ["奧","室之西南隅，古為尊長所居之處。「為人子者，居不主奧」──不居尊位，即以空間表達名分。"],
+ ["凊","音 qìng，涼也。「冬溫而夏凊」謂冬使父母溫、夏使父母涼，是照護之具體動作。或作「清」。"],
+ ["冠禮","男子二十所行之成人禮，加冠而取字，名分由「童子」轉為成人。「男子二十，冠而字。」"],
+ ["期頤","百年之稱。「期」謂人生以百年為期；「頤」謂養，百事須人供養。"],
+ ["耄・悼","八十九十曰耄（昏忘），七年曰悼（可矜）。二者同享「雖有罪不加刑」之豁免，構成生命兩端的對稱保護。"],
+ ["摯","相見時所執之禮物，依身分而異：「天子鬯，諸侯圭，卿羔，大夫鴈，士雉，庶人之摯匹。」童子則「委摯而退」。"],
+ ["几杖","几為憑靠之具，杖為扶行之具。大夫七十致事而不得謝者，君必賜之几杖，是尊養之禮。"],
+ ["提攜","長者牽攜少者。「長者與之提攜，則兩手奉長者之手」──受扶時以兩手捧承，示鄭重。"],
+ ["拾級聚足","登階之法：一級一足，後足跟前足，不越級。「主人與客讓登……拾級聚足，連步以上。」"],
+ ["剛日・柔日","外事用剛日（甲丙戊庚壬），內事用柔日（乙丁己辛癸）。以日干之陰陽配事之內外，是禮之時序編碼。"],
+ ["不祿","士死之稱，謂不終其祿。「天子死曰崩，諸侯曰薨，大夫曰卒，士曰不祿，庶人曰死。」"],
+ ["淫祀","非其所當祭而祭之。「非其所祭而祭之，名曰淫祀。淫祀無福。」──越分即無效。"],
+ ["儳言","音 chán，攙雜搶話。「長者不及，毋儳言」──長者尚未言及，不得搶先插入。"],
+ ["撙節","抑制與節度。「是以君子恭敬、撙節、退讓以明禮」──禮的三種身體實踐：敬、節、讓。"],
+ ["禮尚往來","「往而不來，非禮也；來而不往，亦非禮也。」禮之運作依賴互惠的循環，與人生「受養→任事→受養」之結構同構。"],
+ ["質文","質為內實，文為儀節。「行修言道，禮之質也」；文過則偽，質勝則野，二者須相稱。"]
+];
+
+var TOOLS = [
+ {n:"正名（名實之辨）",d:"以名定實，以實核名。名不正則言不順，故禮先「命名」。",
+  c:["人生十年曰幼，學……百年曰期、頤（以名定階段之責）","天子死曰崩……庶人曰死（以名定名分）","非其所祭而祭之，名曰淫祀（以名定越分）"],
+  u:"現代應用：職稱、權限、資料欄位之定義須先明確，討論才有意義。凡爭執不下者，先問「我們說的『同一個詞』是否同義？」"},
+ {n:"差等分類",d:"同一事實依身分、場合、程度而分級處理，避免一刀切。",
+  c:["祭祀四級：天子祭天地／諸侯方祀／大夫祭五祀／士祭其先","長幼三級：倍齡父事之／十齡兄事之／五齡肩隨之","答問四級：能從宗廟社稷／能御／能典謁／能負薪"],
+  u:"現代應用：制度設計須區分層級與情境（如分級授權、風險分級），但分級之依據必須是可公開檢驗的理由，而非身分歧視。"},
+ {n:"條件句推理",d:"以「若／則」建立可驗證的規則，把模糊的道德要求轉為可判定的程序。",
+  c:["戶外有二屨，言聞則入，言不聞則不入","三諫而不聽，則逃之／則號泣而隨之","非有見焉，弗與為友"],
+  u:"現代應用：寫規則時明確列出「前件（可觀察證據）→後件（行為）」，並確認前件確實可觀察、可舉證。"},
+ {n:"對稱與互惠",d:"結構上成對出現，形成閉合循環，缺一即失衡。",
+  c:["悼 ↔ 耄（生命兩端同享豁免）","往而不來，非禮也；來而不往，亦非禮也","出必告 ↔ 反必面；昏定 ↔ 晨省"],
+  u:"現代應用：檢視任何關係是否雙向──若只有單方付出或單方規範，結構即不可持續。"},
+ {n:"下限檢驗（a fortiori）",d:"以最不利、最邊緣的案例作檢驗，若此例成立，則其餘皆可推知。",
+  c:["雖負販者，必有尊也，而況富貴乎","貧者不以貨財為禮，老者不以筋力為禮","弔喪弗能賻，不問其所費"],
+  u:"現代應用：論證普世原則時，先取最弱勢案例測試；設計制度時，先問「最無力者能否使用？」"},
+ {n:"經權之辨",d:"常規（經）與變通（權）並立，以「宜」為校準標準。",
+  c:["禮從宜，使從俗","君子行禮，不求變俗","大夫七十而致事，若不得謝，則必賜之几杖"],
+  u:"現代應用：任何標準作業程序都須設例外處理機制，並寫明例外之判準與核准程序，否則例外將侵蝕常規。"}
+];
+
+/* ============ 渲染 ============ */
+function $(s){return document.querySelector(s)}
+function $$(s){return Array.prototype.slice.call(document.querySelectorAll(s))}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+
+/* --- 卷首打字 --- */
+(function(){
+  var txt="毋不敬　儼若思　安定辭　安民哉";
+  var box=$("#typed"), h="";
+  for(var i=0;i<txt.length;i++){h+='<span class="ch">'+(txt[i]==="　"?"&emsp;":txt[i])+'</span>';}
+  box.innerHTML=h;
+  var chs=box.querySelectorAll(".ch"), k=0;
+  var tm=setInterval(function(){
+    if(k>=chs.length){clearInterval(tm);return}
+    chs[k].classList.add("show");k++;
+  },230);
+})();
+
+/* --- 導航 --- */
+var SEC=[["intro","解題"],["q1","卷一・定位"],["q2","卷二・規範"],["q3","卷三・實踐"],["q4","卷四・方法"],["quiz","卷五・測驗"],["appx","附錄"]];
+(function(){
+  var n=$("#navlinks"),s=$("#sidenav"),h="";
+  SEC.forEach(function(x){h+='<a href="#'+x[0]+'">'+x[1]+'</a>';s.innerHTML+='<button data-t="'+x[1]+'" data-to="'+x[0]+'"></button>';});
+  n.innerHTML=h;
+  $$("#sidenav button").forEach(function(b){b.addEventListener("click",function(){location.hash="#"+b.dataset.to})});
+  $("#menuBtn").addEventListener("click",function(){n.classList.toggle("open")});
+  n.addEventListener("click",function(e){if(e.target.tagName==="A")n.classList.remove("open")});
+})();
+
+/* --- 進度／卷軸高亮 --- */
+window.addEventListener("scroll",function(){
+  var h=document.documentElement;
+  var p=h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+  $("#prog").style.width=p+"%";
+  $("#toTop").classList.toggle("show",h.scrollTop>500);
+},{passive:true});
+$("#toTop").addEventListener("click",function(){window.scrollTo({top:0,behavior:"smooth"})});
+
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}});
+},{threshold:.08});
+$$(".reveal").forEach(function(el){io.observe(el)});
+
+var spy=new IntersectionObserver(function(es){
+  es.forEach(function(e){
+    if(e.isIntersecting){
+      $$("#navlinks a").forEach(function(a){a.classList.toggle("on",a.getAttribute("href")==="#"+e.target.id)});
+      $$("#sidenav button").forEach(function(b){b.classList.toggle("on",b.dataset.to===e.target.id)});
+    }
+  });
+},{rootMargin:"-45% 0px -50% 0px"});
+SEC.forEach(function(x){var el=document.getElementById(x[0]);if(el)spy.observe(el)});
+
+/* --- 主題 --- */
+try{var th=localStorage.getItem("quli_theme");if(th)document.documentElement.setAttribute("data-theme",th)}catch(e){}
+function syncTheme(){
+  var t=document.documentElement.getAttribute("data-theme");
+  $("#themeBtn").textContent=(t==="night")?"晨讀":"夜讀";
+}
+syncTheme();
+$("#themeBtn").addEventListener("click",function(){
+  var t=document.documentElement.getAttribute("data-theme")==="night"?"day":"night";
+  document.documentElement.setAttribute("data-theme",t);
+  try{localStorage.setItem("quli_theme",t)}catch(e){}
+  syncTheme();
+});
+
+/* ============ 卷一：年齡軸 ============ */
+(function(){
+  var rail=$("#rail"),h="";
+  STAGES.forEach(function(s,i){
+    h+='<button class="rbtn'+(i===0?" on":"")+'" role="tab" data-i="'+i+'"><span class="a">'+s.age+'</span><span class="n">'+s.name.split("・")[0].charAt(0)+'</span></button>';
+  });
+  rail.innerHTML=h;
+  function render(i){
+    var s=STAGES[i];
+    var html='<div class="stagebox"><div>';
+    html+='<h4 class="min">'+s.age+'・'+s.name+'</h4>';
+    html+='<blockquote class="q">'+s.quote+'<span class="src">──《禮記‧曲禮上》</span></blockquote>';
+    html+='<h4 class="min">名義疏解</h4><p style="font-size:14.2px;margin-top:2px">'+s.ming+'</p>';
+    html+='<h4 class="min">應盡之責任</h4><ul class="l">'+s.duty.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>';
+    html+='<h4 class="min">社會定位</h4><ul class="l">'+s.role.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>';
+    html+='<h4 class="min">現代對照</h4><ul class="l">'+s.modern.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>';
+    html+='<h4 class="min">思辨提問</h4><ul class="l">'+s.think.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>';
+    html+='</div><div>';
+    html+='<div class="panel tight frame"><h4 class="min">階段屬性量化</h4>';
+    html+='<div class="bars"><div class="barrow"><div class="lb"><span>受教・受養</span><span>'+s.care+'</span></div><div class="bar c"><i data-w="'+s.care+'"></i></div></div>';
+    html+='<div class="barrow"><div class="lb"><span>任事・負責</span><span>'+s.resp+'</span></div><div class="bar j"><i data-w="'+s.resp+'"></i></div></div></div>';
+    html+='<p class="note">量化僅為研習示意：依經文所賦之責任（學、冠、仕、服官政、指使、傳）與受護程度（不加刑、不以筋力為禮、期頤）相對權衡而得。</p></div>';
+    html+='<div class="panel tight frame" style="margin-top:14px"><h4 class="min">此段之核心判斷</h4><p style="font-size:13.8px">'+["名分為「受保護者」：以教代刑，禮在此承擔的是教育功能而非懲罰功能。","名分為「學者」：學習即此階段之社會義務，能力以「能為某事」表述。","名分為「成人」：權利與義務同時生效，能力則留待後續階段養成。","名分為「家長」：上承下啟，家族責任與經濟責任同時到位。","名分為「任事者」：由家族責任擴及公共責任，榮辱與職分相繫。","名分為「主政者」：由執行轉為治理，對制度與風俗負責。","名分為「指導者」：不任勞力而存其識，是組織的知識節點。","名分為「交棒者」：權力有落日條款，以尊養換實權。","名分為「受養之尊」：尊其存在，而非憐其衰弱。","名分為「期頤」：以被養定義人生之完成，構成循環之閉合。"][i]+'</p></div>';
+    html+='</div></div>';
+    $("#stagePanel").innerHTML=html;
+    setTimeout(function(){$$("#stagePanel .bar i").forEach(function(b){b.style.width=b.dataset.w+"%"})},60);
+  }
+  rail.addEventListener("click",function(e){
+    var b=e.target.closest(".rbtn");if(!b)return;
+    $$(".rbtn").forEach(function(x){x.classList.remove("on")});
+    b.classList.add("on");render(+b.dataset.i);
+  });
+  render(0);
+})();
+
+/* ============ 卷一：社會定位四維 ============ */
+(function(){
+  var t=$("#rankTabs"),b=$("#rankBody"),h="";
+  RANKS.forEach(function(r,i){h+='<button class="'+(i===0?"on":"")+'" data-i="'+i+'">'+r.t+'</button>'});
+  t.innerHTML=h;
+  function render(i){
+    var r=RANKS[i];
+    var html='<p class="lead" style="margin:0 0 12px">'+r.lead+'</p><table class="data"><tr><th style="width:44%">原文</th><th>疏解與邏輯分析</th></tr>';
+    r.rows.forEach(function(x){html+='<tr><td class="q2">'+x[0]+'</td><td>'+x[1]+'</td></tr>'});
+    html+='</table><p class="note">出處：《禮記‧曲禮下》（「天子穆穆」以下諸條）／《禮記‧曲禮上》（「凡視」一條）。</p>';
+    b.innerHTML=html;
+  }
+  t.addEventListener("click",function(e){
+    var x=e.target.closest("button");if(!x)return;
+    $$("#rankTabs button").forEach(function(y){y.classList.remove("on")});x.classList.add("on");render(+x.dataset.i);
+  });
+  render(0);
+})();
+
+/* ============ 卷二：五倫圖 ============ */
+(function(){
+  var svg=$("#relSvg"),W=460,cx=230,cy=224,R=158;
+  var h='<circle cx="'+cx+'" cy="'+cy+'" r="'+R+'" fill="none" stroke="#c4ae85" stroke-dasharray="3 5"/>';
+  RELATIONS.forEach(function(r,i){
+    var a=r.ang*Math.PI/180,x=cx+R*Math.cos(a),y=cy+R*Math.sin(a);
+    h+='<line class="spoke" x1="'+cx+'" y1="'+cy+'" x2="'+x+'" y2="'+y+'"/>';
+  });
+  h+='<circle cx="'+cx+'" cy="'+cy+'" r="44" fill="#fbf5e7" stroke="#9c2b21" stroke-width="1.4"/>';
+  h+='<text x="'+cx+'" y="'+(cy-4)+'" text-anchor="middle" font-size="13" fill="#544a3c">人倫</text>';
+  h+='<text x="'+cx+'" y="'+(cy+24)+'" text-anchor="middle" font-size="24" fill="#9c2b21" font-family="Ma Shan Zheng,serif">敬</text>';
+  RELATIONS.forEach(function(r,i){
+    var a=r.ang*Math.PI/180,x=cx+R*Math.cos(a),y=cy+R*Math.sin(a);
+    h+='<g class="node'+(i===0?" on":"")+'" data-i="'+i+'" role="button" tabindex="0" aria-label="'+r.n+'">';
+    h+='<circle cx="'+x+'" cy="'+y+'" r="44"/>';
+    h+='<text x="'+x+'" y="'+(y+2)+'" text-anchor="middle">'+r.n.length>3?r.n.slice(0,2):r.n+'</text>';
+    if(r.n.length>3)h+='<text x="'+x+'" y="'+(y+20)+'" text-anchor="middle">'+r.n.slice(2)+'</text>';
+    h+='<text x="'+x+'" y="'+(y-18)+'" text-anchor="middle" font-size="11" fill="#a2814a">'+r.de+'</text>';
+    h+='</g>';
+  });
+  svg.innerHTML=h;
+  var ch=$("#relChips"),hc="";
+  RELATIONS.forEach(function(r,i){hc+='<button class="chip'+(i===0?" on":"")+'" data-i="'+i+'">'+r.n+'・'+r.de+'</button>'});
+  ch.innerHTML=hc;
+  function render(i){
+    var r=RELATIONS[i];
+    var html='<h4 class="min">'+r.n+'　'+r.de+'　｜　'+r.both+'</h4>';
+    html+='<h4 class="min">經文依據</h4><ul class="l">'+r.yuan.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>';
+    html+='<h4 class="min">行為準則之結構分析</h4><ul class="l">'+r.norm.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>';
+    html+='<h4 class="min">現代落實</h4><ul class="l">'+r.now.map(function(x){return "<li>"+x+"</li>"}).join("")+'</ul>';
+    html+='<div class="panel tight frame" style="margin-top:12px"><h4 class="min">思辨</h4><p style="font-size:13.8px">'+r.think+'</p></div>';
+    $("#relPanel").innerHTML=html;
+  }
+  function sel(i){
+    $$("#relSvg .node").forEach(function(n){n.classList.toggle("on",+n.dataset.i===i)});
+    $$("#relChips .chip").forEach(function(c){c.classList.toggle("on",+c.dataset.i===i)});
+    render(i);
+  }
+  svg.addEventListener("click",function(e){var g=e.target.closest(".node");if(g)sel(+g.dataset.i)});
+  svg.addEventListener("keydown",function(e){if(e.key==="Enter"){var g=e.target.closest(".node");if(g)sel(+g.dataset.i)}});
+  ch.addEventListener("click",function(e){var c=e.target.closest(".chip");if(c)sel(+c.dataset.i)});
+  render(0);
+})();
+
+/* ============ 卷二：身分檢核 ============ */
+var store={};
+try{store=JSON.parse(localStorage.getItem("quli_roles")||"{}")}catch(e){store={}}
+var actRoles=Object.keys(store).length?Object.keys(store):["0"];
+(function(){
+  var c=$("#roleChips"),h="";
+  ROLES.forEach(function(r,i){h+='<button class="chip" data-i="'+i+'">'+r.n+'</button>'});
+  c.innerHTML=h;
+  function ring(){
+    var tot=0,done=0;
+    actRoles.forEach(function(i){
+      ROLES[+i].items.forEach(function(it,j){tot++;if(store[i]&&store[i][j])done++});
+    });
+    var C=314,pct=tot?done/tot:0;
+    $("#ringFg").setAttribute("stroke-dashoffset",String(C-C*pct));
+    $("#ringTxt").textContent=done+" / "+tot;
+  }
+  function syncChips(){
+    $$("#roleChips .chip").forEach(function(b){b.classList.toggle("on",actRoles.indexOf(b.dataset.i)>=0)});
+  }
+  function render(){
+    var html="";
+    if(!actRoles.length){html='<p class="note">請於左側選擇目前所扮演之身分（可複選）。</p>'}
+    actRoles.forEach(function(i){
+      var r=ROLES[+i];
+      html+='<h4 class="min">'+r.n+'（'+r.items.length+' 條）</h4>';
+      r.items.forEach(function(it,j){
+        var ck=(store[i]&&store[i][j])?"checked":"";
+        html+='<label class="citem'+(ck?" done":"")+'" data-r="'+i+'" data-j="'+j+'"><input type="checkbox" '+ck+'>';
+        html+='<span><span class="y">'+it.y+'</span><span class="b">'+it.b+'</span><span class="m">現代落實：'+it.m+'</span></span></label>';
+      });
+    });
+    $("#roleBody").innerHTML=html;
+    ring();syncChips();
+  }
+  $("#roleChips").addEventListener("click",function(e){
+    var b=e.target.closest(".chip");if(!b)return;
+    var i=b.dataset.i,k=actRoles.indexOf(i);
+    if(k>=0)actRoles.splice(k,1);else actRoles.push(i);
+    render();
+  });
+  $("#roleBody").addEventListener("change",function(e){
+    var lb=e.target.closest(".citem");if(!lb)return;
+    var r=lb.dataset.r,j=lb.dataset.j;
+    store[r]=store[r]||{};
+    store[r][j]=e.target.checked;
+    lb.classList.toggle("done",e.target.checked);
+    try{localStorage.setItem("quli_roles",JSON.stringify(store))}catch(x){}
+    ring();
+  });
+  $("#roleAll").addEventListener("click",function(){actRoles=ROLES.map(function(_,i){return String(i)});render()});
+  $("#roleClear").addEventListener("click",function(){store={};try{localStorage.removeItem("quli_roles")}catch(e){}render();toast("勾選已清空")});
+  render();
+})();
+
+/* ============ 卷三：時辰 ============ */
+(function(){
+  var box=$("#hours"),h="";
+  HOURS.forEach(function(x,i){h+='<button class="hbtn'+(i===3?" on":"")+'" data-i="'+i+'" role="tab"><span class="z">'+x.z+'</span><span class="t">'+x.t+'</span></button>'});
+  box.innerHTML=h;
+  function render(i){
+    var x=HOURS[i];
+    var html='<h4 class="min">'+x.z+'時（'+x.t+'）・'+x.n+'</h4>';
+    html+='<blockquote class="q">'+x.li+'<span class="src">──《禮記‧曲禮》</span></blockquote>';
+    html+='<p style="font-size:14.2px;margin-top:10px"><b style="color:var(--jade)">今日落實：</b>'+x.now+'</p>';
+    $("#hourPanel").innerHTML=html;
+  }
+  box.addEventListener("click",function(e){
+    var b=e.target.closest(".hbtn");if(!b)return;
+    $$(".hbtn").forEach(function(x){x.classList.remove("on")});b.classList.add("on");render(+b.dataset.i);
+  });
+  render(3);
+})();
+
+/* ============ 卷三：情境題 ============ */
+(function(){
+  var h="";
+  SCENES.forEach(function(s,i){
+    h+='<div class="scene" data-i="'+i+'"><div class="st"><b>情境'+(i+1)+'　</b>'+s.q+'</div>';
+    s.o.forEach(function(o,j){h+='<button class="opt" data-j="'+j+'">'+String.fromCharCode(65+j)+'．'+o+'</button>'});
+    h+='<div class="exp"><b style="color:var(--cinnabar)">原文依據：</b>'+s.y+'<br><br><b style="color:var(--jade)">疏解：</b>'+s.e+'</div></div>';
+  });
+  $("#scenes").innerHTML=h;
+  $("#scenes").addEventListener("click",function(e){
+    var b=e.target.closest(".opt");if(!b||b.disabled)return;
+    var sc=b.closest(".scene"),i=+sc.dataset.i,j=+b.dataset.j,ans=SCENES[i].a;
+    $$(".opt",sc).forEach(function(o){o.disabled=true;o.classList.remove("ok","no")});
+    $$(".opt",sc)[ans].classList.add("ok");
+    if(j!==ans)b.classList.add("no");
+    sc.querySelector(".exp").classList.add("show");
+  });
+  function $$(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))}
+})();
+
+/* ============ 卷四：方法 ============ */
+(function(){
+  var t=$("#toolTabs"),h="";
+  TOOLS.forEach(function(x,i){h+='<button class="'+(i===0?"on":"")+'" data-i="'+i+'">'+x.n+'</button>'});
+  t.innerHTML=h;
+  function render(i){
+    var x=TOOLS[i];
+    var html='<h4 class="min">'+x.n+'</h4><p style="font-size:14.4px">'+x.d+'</p>';
+    html+='<h4 class="min">經文實例</h4><ul class="l">'+x.c.map(function(y){return "<li>"+y+"</li>"}).join("")+'</ul>';
+    html+='<div class="panel tight frame" style="margin-top:10px"><p style="font-size:13.6px;margin:0">'+x.u+'</p></div>';
+    $("#toolBody").innerHTML=html;
+  }
+  t.addEventListener("click",function(e){
+    var b=e.target.closest("button");if(!b)return;
+    $$("#toolTabs button").forEach(function(x){x.classList.remove("on")});b.classList.add("on");render(+b.dataset.i);
+  });
+  render(0);
+})();
+
+/* ============ 修身箋 ============ */
+function buildPaper(includeAll){
+  var lines=[],cnt=0;
+  var sel=[];
+  Object.keys(store).forEach(function(i){ROLES[+i].items.forEach(function(it,j){if(store[i][j])sel.push([ROLES[+i].n,it.y])})});
+  if(!sel.length&&!includeAll)return "";
+  if(includeAll){
+    sel=[];ROLES.forEach(function(r){r.items.forEach(function(it){sel.push([r.n,it.y])})});
+  }
+  lines.push("修　身　箋");
+  lines.push("──本《禮記‧曲禮》三問研習卷而立");
+  lines.push("");
+  var cur=null;
+  sel.forEach(function(x){
+    if(x[0]!==cur){cur=x[0];lines.push("◆ "+cur)}
+    lines.push("　　□ "+x[1]);cnt++;
+  });
+  lines.push("");
+  lines.push("右 "+cnt+" 條，謹書以自省。");
+  lines.push("毋不敬，儼若思，安定辭。");
+  lines.push("臨財毋苟得，臨難毋苟免；");
+  lines.push("敖不可長，欲不可從，志不可滿，樂不可極。");
+  lines.push("");
+  lines.push("立箋日期："+new Date().toLocaleDateString("zh-TW"));
+  return lines.join("\n");
+}
+function toast(m){var t=$("#toast");t.textContent=m;t.classList.add("show");setTimeout(function(){t.classList.remove("show")},2200)}
+var lastPaper="";
+$("#genPaper").addEventListener("click",function(){
+  lastPaper=buildPaper(false);
+  if(!lastPaper){toast("請先於卷二勾選準則");return}
+  $("#paperPrev").textContent=lastPaper;$("#paperTxt").textContent=lastPaper;$("#paper").classList.add("show");
+});
+$("#genAll").addEventListener("click",function(){
+  lastPaper=buildPaper(true);$("#paperPrev").textContent=lastPaper;$("#paperTxt").textContent=lastPaper;$("#paper").classList.add("show");
+});
+function copyPaper(){
+  if(!lastPaper){toast("請先生成修身箋");return}
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(lastPaper).then(function(){toast("已複製修身箋")},function(){fallbackCopy()})}else fallbackCopy();
+  function fallbackCopy(){
+    var ta=document.createElement("textarea");ta.value=lastPaper;document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");toast("已複製修身箋")}catch(e){toast("複製失敗，請手動選取")}
+    document.body.removeChild(ta);
+  }
+}
+$("#copyPaper").addEventListener("click",copyPaper);
+$("#copyPaper2").addEventListener("click",copyPaper);
+$("#paperClose").addEventListener("click",function(){$("#paper").classList.remove("show")});
+$("#paper").addEventListener("click",function(e){if(e.target.id==="paper")this.classList.remove("show")});
+
+/* ============ 卷五：測驗 ============ */
+(function(){
+  var h="";
+  QUIZ.forEach(function(q,i){
+    h+='<div class="qq" data-i="'+i+'"><div class="qh"><i>第'+(i+1)+'題</i>'+q.q+'</div>';
+    q.o.forEach(function(o,j){
+      h+='<label data-j="'+j+'"><input type="radio" name="q'+i+'" value="'+j+'"><span>'+String.fromCharCode(65+j)+'．'+o+'</span></label>';
+    });
+    h+='<div class="fb"></div></div>';
+  });
+  $("#quizBody").innerHTML=h;
+  $("#gradeBtn").addEventListener("click",function(){
+    var right=0,unanswered=0;
+    QUIZ.forEach(function(q,i){
+      var box=$(".qq[data-i='"+i+"']");
+      var sel=box.querySelector("input:checked");
+      box.querySelectorAll("label").forEach(function(l){l.classList.remove("ok","no")});
+      var fb=box.querySelector(".fb");
+      if(!sel){unanswered++;fb.className="fb show";fb.innerHTML="<b style='color:var(--cinnabar)'>未作答。</b> 正解："+String.fromCharCode(65+q.a)+"。<br><b style='color:var(--jade)'>解析：</b>"+q.e;return}
+      var v=+sel.value;
+      if(v===q.a)right++;
+      box.querySelectorAll("label")[q.a].classList.add("ok");
+      if(v!==q.a)box.querySelectorAll("label")[v].classList.add("no");
+      fb.className="fb show";
+      fb.innerHTML=(v===q.a?"<b style='color:var(--jade)'>✔ 答對。</b>":"<b style='color:var(--cinnabar)'>✘ 答錯。你的選擇："+String.fromCharCode(65+v)+"，正解："+String.fromCharCode(65+q.a)+"。</b>")+"<br><b>解析：</b>"+q.e;
+    });
+    $("#score").textContent=right+"／"+QUIZ.length;
+    var pct=Math.round(right/QUIZ.length*100);
+    $("#scoreTxt").textContent=pct+" 分　"+(unanswered?"（未作答 "+unanswered+" 題）":"")+ "　"+(pct>=90?"精通・可為人師":pct>=75?"通曉・猶須温習":pct>=60?"略識・宜再研讀":"未達・請重讀三卷");
+  });
+  $("#resetBtn").addEventListener("click",function(){
+    QUIZ.forEach(function(q,i){
+      var box=$(".qq[data-i='"+i+"']");
+      box.querySelectorAll("input").forEach(function(x){x.checked=false});
+      box.querySelectorAll("label").forEach(function(l){l.classList.remove("ok","no")});
+      box.querySelector(".fb").className="fb";box.querySelector(".fb").innerHTML="";
+    });
+    $("#score").textContent="──";$("#scoreTxt").textContent="尚未批改";
+    document.getElementById("quiz").scrollIntoView({behavior:"smooth"});
+  });
+})();
+
+/* ============ 附錄：名詞 ============ */
+(function(){
+  var h="";
+  GLOSS.forEach(function(g){
+    h+='<details class="gl"><summary><b>'+g[0]+'</b><span class="ar">▸</span></summary><div class="b">'+g[1]+'</div></details>';
+  });
+  $("#gloss").innerHTML=h;
+})();
+</script>
+</body>
+</html>
